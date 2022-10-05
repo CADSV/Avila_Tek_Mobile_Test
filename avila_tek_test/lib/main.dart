@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 //Project imports
+import 'package:avila_tek_test/infraestructure/ui/components/loading_component.dart';
 import 'package:avila_tek_test/infraestructure/ui/feed/feed_page.dart';
 import 'package:avila_tek_test/infraestructure/utils/device_util.dart';
 import 'package:avila_tek_test/infraestructure/core/routes_manager.dart';
@@ -52,8 +53,7 @@ class AvilaTekTest extends StatelessWidget {
             // return NoInternetPage();
           }
         } else {
-          // return const LoadingComponent();
-          return const CircularProgressIndicator(color: Colors.red);
+          return const LoadingComponent();
         }
       },
     );
