@@ -58,7 +58,7 @@ extension TextConstantExtension on TextConstant {
         return 'Save changes';
 
       case TextConstant.errorOcurred:
-        return 'We have a litlle problem. Please try again later';
+        return 'We have a little problem. Please try again later';
     }
   }
 }

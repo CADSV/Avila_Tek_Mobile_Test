@@ -1,6 +1,7 @@
 //Flutter imports
 // ignore_for_file: library_private_types_in_public_api
 
+import 'package:avila_tek_test/infraestructure/ui/components/nav_bar_component.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -28,16 +29,17 @@ class _FeedPageState extends State<FeedPage> {
   // ignore: prefer_const_constructors_in_immutables
 
   //Controllers
-  final scrollController = ScrollController();
-  bool _isLoading = false;
+  final _scrollController = ScrollController();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+  bool _isLoading = false; //for the infinite scroll
 
 
   @override
   void initState(){
     super.initState();
 
-    scrollController.addListener((){
-      if(scrollController.position.maxScrollExtent  == scrollController.offset) {
+    _scrollController.addListener((){
+      if(_scrollController.position.maxScrollExtent  == _scrollController.offset) {
         setState(() {
           _isLoading = true;
         });
@@ -54,8 +56,10 @@ class _FeedPageState extends State<FeedPage> {
       child: BlocBuilder<FeedBloc, FeedState>(
         builder: (context, state) {
           return BaseUIComponent(
+            scaffoldKey: scaffoldKey,
             appBar: _renderAppBar(context),
             body: _body(context, state),
+            drawer: const NavBar(),
             // bottomNavigationBar: _renderBottomNavigationBar(context),
           );
         },
@@ -70,7 +74,23 @@ class _FeedPageState extends State<FeedPage> {
     title: const Text('Latest', style: TextStyle(color: colorBlack, fontSize: 24, fontWeight: FontWeight.bold)),
     centerTitle: true,
     elevation: 0,
+    leading: IconButton(
+      color: colorPrimary,
+      iconSize: 30,
+      icon: const Icon(Icons.menu),
+      onPressed: (){
+        if(scaffoldKey.currentState!.isDrawerOpen){
+              scaffoldKey.currentState!.closeDrawer();
+              //close drawer, if drawer is open
+        }else{
+              scaffoldKey.currentState!.openDrawer();
+              //open drawer, if drawer is closed
+        }
+      },
+    ),
   );
+
+  
 
 
    //Widget Body
@@ -108,7 +128,7 @@ class _FeedPageState extends State<FeedPage> {
     Padding(
       padding: const EdgeInsets.all(16),
       child: GridView.count(
-        controller: scrollController,
+        controller: _scrollController,
         crossAxisCount: 2,
         shrinkWrap: true,
         childAspectRatio: 0.72,
@@ -144,4 +164,3 @@ class _FeedPageState extends State<FeedPage> {
 
 
 }
-

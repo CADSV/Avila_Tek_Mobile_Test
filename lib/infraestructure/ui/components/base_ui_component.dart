@@ -13,13 +13,17 @@ class BaseUIComponent extends StatefulWidget {
   Color? backgroundColor;
   Widget? bottomNavigationBar;
   Widget? floatingAcctionButton;
+  Widget? drawer;
+  Key? scaffoldKey;
 
-  BaseUIComponent({Key? key, 
+  BaseUIComponent({Key? key,
     this.appBar,
     required this.body,
     this.backgroundColor,
     this.bottomNavigationBar,
-    this.floatingAcctionButton
+    this.floatingAcctionButton,
+    this.drawer,
+    this.scaffoldKey,
   }) : super(key: key);
 
   @override
@@ -30,6 +34,7 @@ class _BaseUIComponent extends State<BaseUIComponent> {
   Widget build(BuildContext context) {
     final Color bgColor = widget.backgroundColor ?? colorWhite;
     return Scaffold(
+        drawer: widget.drawer,
         appBar: widget.appBar,
         body: GestureDetector(
             onTap: () {
@@ -39,6 +44,7 @@ class _BaseUIComponent extends State<BaseUIComponent> {
         backgroundColor: bgColor,
         bottomNavigationBar: widget.bottomNavigationBar,
         floatingActionButton: widget.floatingAcctionButton,
+        key: widget.scaffoldKey,
     );
   }
 }

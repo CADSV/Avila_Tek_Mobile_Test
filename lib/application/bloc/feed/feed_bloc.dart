@@ -2,12 +2,12 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:async';
-import 'package:avila_tek_test/infraestructure/core/constants/text_constants.dart';
-import 'package:avila_tek_test/infraestructure/ui/components/dialog_component.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 //Project imports
+import 'package:avila_tek_test/infraestructure/core/constants/text_constants.dart';
+import 'package:avila_tek_test/infraestructure/ui/components/dialog_component.dart';
 import 'package:avila_tek_test/infraestructure/core/navigator_manager.dart';
 import 'package:avila_tek_test/application/use_cases/movies/get_movies_feed_use_case.dart';
 import 'package:avila_tek_test/domain/models/movies/popular_movies_model.dart';
@@ -79,6 +79,8 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
   ///It fetches more movies for the feed
   ///It adds the new movies to the stream
   void _fetchMoreMoviesEventToState(FeedEventFetchMoreMovies event, Emitter<FeedState> emit) async {
+
+    _showDialog(event.context, TextConstant.sorry.text, TextConstant.errorOcurred.text);
 
     var response = await _getMoviesFeedUseCase.run(_pageNumber); //Execute the use case
 
