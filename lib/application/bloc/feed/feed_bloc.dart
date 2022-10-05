@@ -25,6 +25,10 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
     on<FeedEventNavigateToWith>(_navigateToWithEventToState);
   }
 
+  //Variables
+
+  String _pageNumber = '1'; //This is the page number of the feed response. Starts in 1
+
   //Getters
   Stream<List<MovieModel>> get feedStream => _feedStreamController.stream;
 
@@ -36,14 +40,16 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
   void _fetchBasicFeedDataEventToState(FeedEventFetchBasicData event, Emitter<FeedState> emit) async {
     emit(FeedStateLoading());
 
-    var response = await _getMoviesFeedUseCase.run('1');
+    var response = await _getMoviesFeedUseCase.run(_pageNumber);
 
     if(response != null){
-      var moviesList =  getPopularMoviesModelFromJson(response);
+      var popularMoviesResponse =  getPopularMoviesModelFromJson(response);
 
-      List<MovieModel> movies = moviesList.results!;
+      List<MovieModel> moviesList = popularMoviesResponse.results!;
 
-      _feedStreamController.sink.add(movies);
+      _pageNumber = popularMoviesResponse.page.toString();
+
+      _feedStreamController.sink.add(moviesList);
 
     } else {
 
