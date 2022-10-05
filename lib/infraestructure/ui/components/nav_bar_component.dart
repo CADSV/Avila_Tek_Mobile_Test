@@ -48,6 +48,7 @@ class NavBar extends StatelessWidget {
       ),
     );
 
+    ///_navBarHeader: Method that returns the header of the navigation bar.
     Widget _navBarHeader(BuildContext context) =>
       UserAccountsDrawerHeader(
         accountName: const Text('Carlos Doffiny S-V', style: TextStyle(fontWeight: FontWeight.bold),),
