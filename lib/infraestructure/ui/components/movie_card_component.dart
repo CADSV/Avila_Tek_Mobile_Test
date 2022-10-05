@@ -6,6 +6,8 @@ import 'package:avila_tek_test/infraestructure/core/constants/images_constants.d
 import 'package:avila_tek_test/domain/models/movies/popular_movies_model.dart';
 import 'package:avila_tek_test/infraestructure/ui/styles/colors.dart';
 
+
+///This component is used to render the movie card in the feed page.
 class MovieCardComponent extends StatelessWidget {
 
   final MovieModel movie;
@@ -27,7 +29,7 @@ class MovieCardComponent extends StatelessWidget {
         ),
         child: Stack(
           children: [
-            ClipRRect(
+            ClipRRect( //IMAGE
               borderRadius: const BorderRadius.all(Radius.circular(10.0)),
               child: Image.network(
                 imageUrl + movie.posterPath!,
@@ -35,7 +37,7 @@ class MovieCardComponent extends StatelessWidget {
                 height: double.infinity,
                 width: double.infinity,
               )),
-            Column(
+            Column( //MOVIE TITLE
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
@@ -53,7 +55,7 @@ class MovieCardComponent extends StatelessWidget {
                     ),
                   )
                 ),
-                Container(
+                Container( //MOVIE RATING
                   width: double.infinity,
                   padding: const EdgeInsets.only(bottom: 8, left: 8),
                   color: Colors.transparent,

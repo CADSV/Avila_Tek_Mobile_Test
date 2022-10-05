@@ -10,6 +10,5 @@ class FeedStateLoading extends FeedState {}
 
 class FeedStateHideLoading extends FeedState {}
 
-class FeedStateError extends FeedState {}
 
 

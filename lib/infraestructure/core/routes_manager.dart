@@ -10,7 +10,7 @@ class RoutesManager {
   static Route getOnGenerateRoute(RouteSettings settings, {Object? arguments}) {
     switch (settings.name) {
 
-      case FeedPage.routeName:
+      case '/feed':
         return MaterialPageRoute(builder: (context) => FeedPage());
 
       default:
