@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 //Project imports
+import 'package:avila_tek_test/domain/models/movies/popular_movies_model.dart';
 import 'package:avila_tek_test/infraestructure/ui/components/loading_component.dart';
 import 'package:avila_tek_test/application/bloc/feed/feed_bloc.dart';
 import 'package:avila_tek_test/infraestructure/ui/components/base_ui_component.dart';
@@ -35,7 +36,7 @@ class FeedPage extends StatelessWidget {
 
 
   ///Widget AppBar
-  PreferredSizeWidget _renderAppBar(BuildContext context) => AppBar( 
+  PreferredSizeWidget _renderAppBar(BuildContext context) => AppBar(
     backgroundColor: colorWhite,
     title: const Text('Latest', style: TextStyle(color: colorBlack, fontSize: 24, fontWeight: FontWeight.bold)),
     centerTitle: true,
@@ -60,9 +61,9 @@ class FeedPage extends StatelessWidget {
 
 
   //StreamBuilder for the Feed Page
-  Widget _feedStreamBuilder(BuildContext builderContext) => StreamBuilder<String>(
+  Widget _feedStreamBuilder(BuildContext builderContext) => StreamBuilder<List<MovieModel>>(
     stream: builderContext.read<FeedBloc>().feedStream,
-    builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+    builder: (BuildContext context, AsyncSnapshot<List<MovieModel>> snapshot) {
 
       if(snapshot.hasData) {
         return _feedRenderView(context);

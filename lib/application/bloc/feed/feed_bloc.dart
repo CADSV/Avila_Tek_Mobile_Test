@@ -1,17 +1,18 @@
 //Flutter imports
 import 'dart:async';
-import 'package:avila_tek_test/application/use_cases/movies/get_movies_feed_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 //Project imports
 import 'package:avila_tek_test/infraestructure/core/navigator_manager.dart';
+import 'package:avila_tek_test/application/use_cases/movies/get_movies_feed_use_case.dart';
+import 'package:avila_tek_test/domain/models/movies/popular_movies_model.dart';
 part 'feed_event.dart';
 part 'feed_state.dart';
 
 class FeedBloc extends Bloc<FeedEvent, FeedState> {
 
   //Here the StreamController can be a state or a DomainModel
-  final _feedStreamController = StreamController<String>();
+  final _feedStreamController = StreamController<List<MovieModel>>();
 
   //Instances of use cases:
   final NavigatorServiceContract _navigatorManager = NavigatorServiceContract.get();
@@ -25,7 +26,7 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
   }
 
   //Getters
-  Stream<String> get feedStream => _feedStreamController.stream;
+  Stream<List<MovieModel>> get feedStream => _feedStreamController.stream;
 
 
   //Methods
@@ -36,8 +37,19 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
     emit(FeedStateLoading());
 
     var response = await _getMoviesFeedUseCase.run('1');
-    //Here we fetch the data
-    //Here we emit the state
+
+    if(response != null){
+      var moviesList =  getPopularMoviesModelFromJson(response);
+
+      List<MovieModel> movies = moviesList.results!;
+
+      _feedStreamController.sink.add(movies);
+
+    } else {
+
+      emit(FeedStateError());
+    }
+
     emit(FeedStateHideLoading());
   }
 

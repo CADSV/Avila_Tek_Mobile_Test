@@ -1,8 +1,6 @@
 import 'dart:convert';
 
-PopularMoviesModel moviesModelFromJson(String str) => PopularMoviesModel.fromJson(json.decode(str));
-
-String moviesModelToJson(PopularMoviesModel data) => json.encode(data.toJson());
+PopularMoviesModel getPopularMoviesModelFromJson(String str) => PopularMoviesModel.fromJson(json.decode(str));
 
 class PopularMoviesModel {
 PopularMoviesModel({
