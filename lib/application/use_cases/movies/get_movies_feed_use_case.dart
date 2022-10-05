@@ -27,7 +27,6 @@ class _GetMoviesFeedUseCase extends GetMoviesFeedUseCaseContract {
   Future<dynamic> run() async {
 
     try {
-      
       return provider.getMoviesFeed();
 
     } on MovieQueryProviderError catch (error) {

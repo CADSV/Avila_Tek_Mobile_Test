@@ -1,4 +1,3 @@
-// ignore_for_file: unrelated_type_equality_checks
 // Flutter imports:
 import 'dart:async';
 import 'dart:io';
@@ -35,7 +34,7 @@ class RepositoryManager {
     };
   }
 
-  Future<String?> request({required int operation, required String endpoint, Map<String, dynamic>? body, int customHeader = -1, String? clientCode}) async {
+  Future<String?> request({required String operation, required String endpoint, Map<String, dynamic>? body, int customHeader = -1, String? clientCode}) async {
     var setDioOptions = await _dioOptions(endpoint, customHeader, clientCode);
 
     endpoint = FlavorManager.baseURL() + endpoint;

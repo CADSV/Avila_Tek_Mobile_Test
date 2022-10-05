@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 
 //Here we add the flavors that we have (Preferly in mayus, but only in this enum)
 enum Flavor {
-  PRODUCTION
+  PRODUCTION,
+  DEV
   } 
 
 extension FlavorEnum on Flavor {
@@ -11,10 +12,12 @@ extension FlavorEnum on Flavor {
   //flavor's url
   String get url {
     switch (this) {
+      case Flavor.DEV:
+        return 'https://api.themoviedb.org/3/';
       case Flavor.PRODUCTION:
-        return '';
+        return 'https://api.themoviedb.org/3/';
       default:
-        return '';
+        return 'https://api.themoviedb.org/3/';
     }
   }
 

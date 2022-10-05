@@ -26,14 +26,14 @@ extension RepositoryConstantExtension on RepositoryConstant {
 
 ///RepositoryPathConstant: Enum for endpoints path.
 enum RepositoryPathConstant {
-  a
+  moviesFeed
 }
 
 extension RepositoryPathConstantExtension on RepositoryPathConstant {
   String get path {
     switch (this) {
-      case RepositoryPathConstant.a:
-        return '';
+      case RepositoryPathConstant.moviesFeed:
+        return 'movie/popular?api_key=daf06d93a38e15b05c13b95de4b4af1f';
 
     }
   }
