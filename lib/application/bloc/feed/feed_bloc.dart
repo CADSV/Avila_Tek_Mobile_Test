@@ -36,7 +36,7 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
   //Methods
 
   ///This method is called when the event [FeedEventFetchBasicData] is called
-  ///It fetches the basic data of the feed
+  ///It fetches the basic data of the popular movies feed
   void _fetchBasicFeedDataEventToState(FeedEventFetchBasicData event, Emitter<FeedState> emit) async {
     emit(FeedStateLoading());
 
@@ -47,7 +47,7 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
 
       List<MovieModel> moviesList = popularMoviesResponse.results!;
 
-      _pageNumber = popularMoviesResponse.page.toString();
+      _pageNumber = (popularMoviesResponse.page! + 1).toString();
 
       _feedStreamController.sink.add(moviesList);
 

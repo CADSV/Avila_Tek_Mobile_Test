@@ -1,4 +1,6 @@
 //Flutter imports
+import 'package:avila_tek_test/infraestructure/core/constants/images_constants.dart';
+import 'package:avila_tek_test/infraestructure/ui/components/movie_card_component.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -66,7 +68,7 @@ class FeedPage extends StatelessWidget {
     builder: (BuildContext context, AsyncSnapshot<List<MovieModel>> snapshot) {
 
       if(snapshot.hasData) {
-        return _feedRenderView(context);
+        return _feedRenderView(context, snapshot.data!);
       } 
 
       return const LoadingComponent();
@@ -75,6 +77,53 @@ class FeedPage extends StatelessWidget {
 
 
   //Widget for the Feed Page
-  Widget _feedRenderView(BuildContext context) => const Center(child: Text('Feed Page'));
+  Widget _feedRenderView(BuildContext context, List<MovieModel> moviesList) => 
+    Padding(
+      padding: const EdgeInsets.all(16),
+      child: GridView.count(
+        crossAxisCount: 2,
+        shrinkWrap: true,
+        childAspectRatio: 0.72,
+
+        mainAxisSpacing: 16,
+        crossAxisSpacing: 16,
+
+        scrollDirection: Axis.vertical,
+        children: List.generate(moviesList.length, (index) {
+          return GestureDetector(
+            // onTap: ()=>onSelectMovie(moviesModel.results![index] as T),
+              child: SizedBox(
+                height: index % 2 != 0 ?  250 :  140,
+                child: MovieCardComponent(movie: moviesList[index]),
+              ));
+        }),
+      ),
+    );
+
+
+
+
+    // Column(
+    //   children: [
+    //     Container(
+    //       padding: const EdgeInsets.all(20),
+    //       height: MediaQuery.of(context).size.height * 0.38,
+    //       width: MediaQuery.of(context).size.width * 0.42,
+    //       decoration: BoxDecoration(
+    //         color: colorBlack,
+    //         borderRadius: BorderRadius.circular(16)
+    //       ),
+    //       child: Column(
+    //         children: [
+    //           Image.network(imageUrl + moviesList[0].posterPath!),
+    //           Text(moviesList[0].title!, style: const TextStyle(color: colorWhite, fontSize: 18, fontWeight: FontWeight.bold)),
+    //         ],
+    //       ),
+    //     ),
+    //   ],
+    // );
+
+
 
 }
+
