@@ -80,8 +80,6 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
   ///It adds the new movies to the stream
   void _fetchMoreMoviesEventToState(FeedEventFetchMoreMovies event, Emitter<FeedState> emit) async {
 
-    _showDialog(event.context, TextConstant.sorry.text, TextConstant.errorOcurred.text);
-
     var response = await _getMoviesFeedUseCase.run(_pageNumber); //Execute the use case
 
     if(response != null){

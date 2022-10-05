@@ -1,4 +1,5 @@
 //Flutter imports:
+import 'package:avila_tek_test/infraestructure/ui/feed/feed_page.dart';
 import 'package:flutter/material.dart';
 
 //Project imports:
@@ -20,20 +21,28 @@ class NavBar extends StatelessWidget {
         padding: EdgeInsets.zero,
         children:  <Widget>[
           _navBarHeader(context),
-          const ListTile(
-            leading: Icon(Icons.movie),
-            title: Text('Latest Movies'),
+          ListTile(
+            leading: const Icon(Icons.movie),
+            title: const Text('Latest Movies'),
             iconColor: colorPrimary,
+            onTap: (){
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (BuildContext routeContext) => const FeedPage()),
+              );
+            },
           ),
           const ListTile(
             leading: Icon(Icons.person),
             title: Text('Actors'),
             iconColor: colorPrimary,
+            onTap: null,
           ),
           const ListTile(
             leading: Icon(Icons.settings),
             title: Text('Settings'),
             iconColor: colorPrimary,
+            onTap: null,
           ),
         ],
       ),
