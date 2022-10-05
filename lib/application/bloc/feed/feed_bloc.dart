@@ -35,7 +35,7 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
   void _fetchBasicFeedDataEventToState(FeedEventFetchBasicData event, Emitter<FeedState> emit) async {
     emit(FeedStateLoading());
 
-    var response = await _getMoviesFeedUseCase.run();
+    var response = await _getMoviesFeedUseCase.run('1');
     //Here we fetch the data
     //Here we emit the state
     emit(FeedStateHideLoading());
@@ -51,8 +51,7 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
 
 
   //Private Methods:
-  
-   void _dispose(){
+  void _dispose(){
     _feedStreamController.close();
   }
 

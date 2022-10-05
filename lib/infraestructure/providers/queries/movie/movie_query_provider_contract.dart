@@ -7,7 +7,7 @@ abstract class MovieQueryProviderContract {
 
   static MovieQueryProviderContract inject() => _MovieQueryProvider();
 
-  Future getMoviesFeed();
+  Future getMoviesFeed(String pageNumber);
 
 }
 
@@ -21,9 +21,9 @@ enum MovieQueryProviderError {
 class _MovieQueryProvider extends MovieQueryProviderContract {
 
   @override
-  Future getMoviesFeed() async {
+  Future getMoviesFeed(String pageNumber) async {
     final response = await getIt<RepositoryManager>()
-    .request(operation: RepositoryConstant.operationGet.key, endpoint: RepositoryPathConstant.moviesFeed.path, )
+    .request(operation: RepositoryConstant.operationGet.key, endpoint: RepositoryPathConstant.moviesFeed.path + pageNumber, )
     .catchError((onError) {
 
       return null;

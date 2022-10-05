@@ -7,6 +7,9 @@ enum RepositoryConstant {
   operationDelete,
 }
 
+
+ const movieApiKey = 'daf06d93a38e15b05c13b95de4b4af1f';
+
 extension RepositoryConstantExtension on RepositoryConstant {
   String get key {
     switch (this) {
@@ -33,7 +36,7 @@ extension RepositoryPathConstantExtension on RepositoryPathConstant {
   String get path {
     switch (this) {
       case RepositoryPathConstant.moviesFeed:
-        return 'movie/popular?api_key=daf06d93a38e15b05c13b95de4b4af1f';
+        return 'movie/popular?api_key=$movieApiKey&page=';
 
     }
   }

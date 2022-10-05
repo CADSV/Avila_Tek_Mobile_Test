@@ -35,7 +35,12 @@ class FeedPage extends StatelessWidget {
 
 
   ///Widget AppBar
-  PreferredSizeWidget _renderAppBar(BuildContext context) => AppBar( backgroundColor: colorPrimary);
+  PreferredSizeWidget _renderAppBar(BuildContext context) => AppBar( 
+    backgroundColor: colorWhite,
+    title: const Text('Latest', style: TextStyle(color: colorBlack, fontSize: 24, fontWeight: FontWeight.bold)),
+    centerTitle: true,
+    elevation: 0,
+  );
 
 
    //Widget Body
