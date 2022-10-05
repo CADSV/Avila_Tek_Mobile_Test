@@ -25,7 +25,7 @@ class MovieCreditBloc extends Bloc<MovieCreditEvent, MovieCreditState> {
   //You have to declare the StateInitial as the first state
   MovieCreditBloc() : super(MovieCreditStateInitial()){
     on<MovieCreditEventFetchBasicData>(_fetchBasicMovieCreditDataEventToState);
-    on<MovieCreditEventNavigateToWith>(_navigateToWithEventToState);
+    on<MovieCreditEventNavigateTo>(_navigateToEventToState);
   }
 
  //Getters
@@ -37,9 +37,9 @@ class MovieCreditBloc extends Bloc<MovieCreditEvent, MovieCreditState> {
 
    ///This method is called when the event is [MovieCreditEventNavigateToWith]
   ///It navigates to the specified page.
-  void _navigateToWithEventToState(MovieCreditEventNavigateToWith event, Emitter<MovieCreditState> emit) async {
+  void _navigateToEventToState(MovieCreditEventNavigateTo event, Emitter<MovieCreditState> emit) async {
     _dispose();
-    _navigatorManager.navigateToWithReplacement(event.routeName, arguments: event.arguments);
+    _navigatorManager.navigateTo(event.routeName, arguments: event.arguments);
   }
 
 

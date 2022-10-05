@@ -10,10 +10,10 @@ class FeedEventFetchBasicData extends FeedEvent {
   FeedEventFetchBasicData({required this.context});
 }
 
-class FeedEventNavigateToWith extends FeedEvent {
+class FeedEventNavigateTo extends FeedEvent {
   final String routeName;
   final Object? arguments;
-  FeedEventNavigateToWith(this.routeName, this.arguments);
+  FeedEventNavigateTo(this.routeName, this.arguments);
 }
 
 class FeedEventFetchMoreMovies extends FeedEvent {

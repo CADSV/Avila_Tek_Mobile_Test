@@ -10,8 +10,8 @@ class MovieCreditEventFetchBasicData extends MovieCreditEvent {
   MovieCreditEventFetchBasicData({required this.context});
 }
 
-class MovieCreditEventNavigateToWith extends MovieCreditEvent {
+class MovieCreditEventNavigateTo extends MovieCreditEvent {
   final String routeName;
   final Object? arguments;
-  MovieCreditEventNavigateToWith(this.routeName, this.arguments);
+  MovieCreditEventNavigateTo(this.routeName, this.arguments);
 }

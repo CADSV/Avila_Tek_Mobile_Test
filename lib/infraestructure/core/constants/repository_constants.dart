@@ -27,6 +27,20 @@ extension RepositoryConstantExtension on RepositoryConstant {
   }
 }
 
+enum RepositoryParameterPathConstant {
+  movieId
+}
+
+extension RepositoryParameterPathConstantExtension on RepositoryParameterPathConstant {
+  String get path {
+    switch (this) {
+      case RepositoryParameterPathConstant.movieId:
+        return '{movieId}';
+    }
+  }
+}
+
+
 ///RepositoryPathConstant: Enum for endpoints path.
 enum RepositoryPathConstant {
   moviesFeed,
