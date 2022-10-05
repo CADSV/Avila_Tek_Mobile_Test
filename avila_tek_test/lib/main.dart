@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 //Project imports
+import 'package:avila_tek_test/infraestructure/ui/feed/feed_page.dart';
 import 'package:avila_tek_test/infraestructure/utils/device_util.dart';
 import 'package:avila_tek_test/infraestructure/core/routes_manager.dart';
 import 'package:avila_tek_test/infraestructure/ui/styles/theme.dart';
@@ -45,14 +46,14 @@ class AvilaTekTest extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.data!) {
-            return Container();
+            return FeedPage();
           } else {
             return const CircularProgressIndicator(color: Colors.blue);
             // return NoInternetPage();
           }
         } else {
           // return const LoadingComponent();
-          return Container();
+          return const CircularProgressIndicator(color: Colors.red);
         }
       },
     );
