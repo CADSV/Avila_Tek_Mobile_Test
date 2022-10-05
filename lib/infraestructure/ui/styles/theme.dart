@@ -34,7 +34,7 @@ ThemeData mainTheme() {
                   fontSize: 16,
                   fontWeight: FontWeight.bold, ),
               headline1: TextStyle(color: Colors.white, fontSize: 16)).headline6),
-      fontFamily: 'Garet Light',
+      fontFamily: 'Baloo',
       // iconTheme: IconThemeData(color: colorPrimary),
       toggleableActiveColor: colorPrimary,
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
@@ -61,7 +61,7 @@ ThemeData mainTheme() {
               color: colorBlack,
               fontSize: 18.0,
               fontWeight: FontWeight.bold,
-              fontFamily: 'Nexa'),
+              fontFamily: 'Baloo'),
           button: TextStyle(
             fontSize: 16.0,
             color: Colors.white,
@@ -130,7 +130,7 @@ TextStyle textStyleAppBar() {
     color: colorWhite,
     fontSize: 21,
     fontWeight: FontWeight.w600,
-    fontFamily: 'Garet Light',
+    fontFamily: 'Baloo',
   );
 }
 
@@ -141,6 +141,6 @@ TextStyle textStyleFormField(bool primaryColor) {
     color: primaryColor ? colorPrimary : colorBlack,
     fontSize: 17,
     fontWeight: primaryColor ? FontWeight.w500 : FontWeight.w400,
-    fontFamily: 'Garet Light',
+    fontFamily: 'Baloo',
   );
 }

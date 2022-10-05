@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 //Project imports
+import 'package:avila_tek_test/infraestructure/core/flavor_manager.dart';
 import 'package:avila_tek_test/infraestructure/ui/components/loading_component.dart';
 import 'package:avila_tek_test/infraestructure/ui/feed/feed_page.dart';
 import 'package:avila_tek_test/infraestructure/utils/device_util.dart';
@@ -16,7 +17,7 @@ void main() {
 
   InjectionManager.setupInjections(); //Here we setup the injections
 
-  //FLAVOR
+  FlavorManager.make(Flavor.DEV); //Here we set the flavor5 that we want to use.
 
   runApp(const AvilaTekTest());
 }

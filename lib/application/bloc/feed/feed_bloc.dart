@@ -1,17 +1,18 @@
 //Flutter imports
 import 'dart:async';
-import 'package:avila_tek_test/application/use_cases/movies/get_movies_feed_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 //Project imports
 import 'package:avila_tek_test/infraestructure/core/navigator_manager.dart';
+import 'package:avila_tek_test/application/use_cases/movies/get_movies_feed_use_case.dart';
+import 'package:avila_tek_test/domain/models/movies/popular_movies_model.dart';
 part 'feed_event.dart';
 part 'feed_state.dart';
 
 class FeedBloc extends Bloc<FeedEvent, FeedState> {
 
   //Here the StreamController can be a state or a DomainModel
-  final _feedStreamController = StreamController<String>();
+  final _feedStreamController = StreamController<List<MovieModel>>();
 
   //Instances of use cases:
   final NavigatorServiceContract _navigatorManager = NavigatorServiceContract.get();
@@ -24,20 +25,37 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
     on<FeedEventNavigateToWith>(_navigateToWithEventToState);
   }
 
+  //Variables
+
+  String _pageNumber = '1'; //This is the page number of the feed response. Starts in 1
+
   //Getters
-  Stream<String> get feedStream => _feedStreamController.stream;
+  Stream<List<MovieModel>> get feedStream => _feedStreamController.stream;
 
 
   //Methods
 
   ///This method is called when the event [FeedEventFetchBasicData] is called
-  ///It fetches the basic data of the feed
+  ///It fetches the basic data of the popular movies feed
   void _fetchBasicFeedDataEventToState(FeedEventFetchBasicData event, Emitter<FeedState> emit) async {
     emit(FeedStateLoading());
 
-    var response = await _getMoviesFeedUseCase.run();
-    //Here we fetch the data
-    //Here we emit the state
+    var response = await _getMoviesFeedUseCase.run(_pageNumber);
+
+    if(response != null){
+      var popularMoviesResponse =  getPopularMoviesModelFromJson(response);
+
+      List<MovieModel> moviesList = popularMoviesResponse.results!;
+
+      _pageNumber = (popularMoviesResponse.page! + 1).toString();
+
+      _feedStreamController.sink.add(moviesList);
+
+    } else {
+
+      emit(FeedStateError());
+    }
+
     emit(FeedStateHideLoading());
   }
 
@@ -51,8 +69,7 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
 
 
   //Private Methods:
-  
-   void _dispose(){
+  void _dispose(){
     _feedStreamController.close();
   }
 

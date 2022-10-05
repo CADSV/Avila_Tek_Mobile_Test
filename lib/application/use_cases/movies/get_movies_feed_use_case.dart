@@ -15,7 +15,7 @@ abstract class GetMoviesFeedUseCaseContract {
   MovieQueryProviderContract provider = MovieQueryProviderContract.inject();
 
   /// Methods
-  Future<dynamic> run();
+  Future<dynamic> run(String pageNumber);
 }
 
 
@@ -24,11 +24,10 @@ abstract class GetMoviesFeedUseCaseContract {
 class _GetMoviesFeedUseCase extends GetMoviesFeedUseCaseContract {
 
   @override
-  Future<dynamic> run() async {
+  Future<dynamic> run(String pageNumber) async {
 
     try {
-      
-      return provider.getMoviesFeed();
+      return provider.getMoviesFeed(pageNumber);
 
     } on MovieQueryProviderError catch (error) {
       throw error.toUseCaseError();
