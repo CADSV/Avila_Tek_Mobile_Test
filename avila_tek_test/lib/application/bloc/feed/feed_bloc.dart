@@ -1,5 +1,6 @@
 //Flutter imports
 import 'dart:async';
+import 'package:avila_tek_test/application/use_cases/movies/get_movies_feed_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 //Project imports
@@ -14,6 +15,7 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
 
   //Instances of use cases:
   final NavigatorServiceContract _navigatorManager = NavigatorServiceContract.get();
+  final GetMoviesFeedUseCaseContract _getMoviesFeedUseCase = GetMoviesFeedUseCaseContract.get();
 
    //Constructor
   //You have to declare the StateInitial as the first state
@@ -30,9 +32,10 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
 
   ///This method is called when the event [FeedEventFetchBasicData] is called
   ///It fetches the basic data of the feed
-  
   void _fetchBasicFeedDataEventToState(FeedEventFetchBasicData event, Emitter<FeedState> emit) async {
     emit(FeedStateLoading());
+
+    var response = await _getMoviesFeedUseCase.run();
     //Here we fetch the data
     //Here we emit the state
     emit(FeedStateHideLoading());
