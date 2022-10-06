@@ -10,6 +10,8 @@ abstract class ActorQueryProviderContract {
 
   Future getActorInfo(String actorId);
 
+  Future getActorMovies(String actorId);
+
 }
 
 enum ActorQueryProviderError {
@@ -24,6 +26,21 @@ class _ActorQueryProvider extends ActorQueryProviderContract {
 
   @override
   Future getActorInfo(String actorId) async {
+    final response = await getIt<RepositoryManager>()
+    .request(operation: RepositoryConstant.operationGet.key,
+    endpoint: RepositoryPathConstant.actorInfo.path.toString().replaceFirst(RepositoryParameterPathConstant.actorId.path, actorId))
+    .catchError((onError) {
+
+      return null;
+
+    });
+
+    return response;
+  }
+
+
+  @override
+  Future getActorMovies(String actorId) async {
     final response = await getIt<RepositoryManager>()
     .request(operation: RepositoryConstant.operationGet.key,
     endpoint: RepositoryPathConstant.moviesByActor.path.toString().replaceFirst(RepositoryParameterPathConstant.actorId.path, actorId))

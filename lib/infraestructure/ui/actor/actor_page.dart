@@ -1,6 +1,7 @@
 //Flutter imports:
 import 'package:avila_tek_test/domain/models/actors/actor_model.dart';
 import 'package:avila_tek_test/infraestructure/ui/components/loading_component.dart';
+import 'package:avila_tek_test/infraestructure/ui/components/return_button_component.dart';
 import 'package:avila_tek_test/infraestructure/ui/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,7 +28,7 @@ class ActorPage extends StatelessWidget {
       child: BlocBuilder<ActorBloc, ActorState>(
         builder: (context, state) {
           return BaseUIComponent(
-            appBar: _renderAppBar(context),
+            // appBar: _renderAppBar(context),
             body: _body(context, state),
             // bottomNavigationBar: _renderBottomNavigationBar(context),
           );
@@ -40,15 +41,7 @@ class ActorPage extends StatelessWidget {
 ///Widget AppBar
   PreferredSizeWidget _renderAppBar(BuildContext context) => AppBar(
     backgroundColor: colorWhite,
-    elevation: 0,
-    leading: IconButton(
-      color: colorPrimary,
-      iconSize: 30,
-      icon: const Icon(Icons.chevron_left),
-      onPressed: () {
-        //TODO: Implemen where to go.
-      }
-    ),
+    
   );
 
 
@@ -83,14 +76,18 @@ class ActorPage extends StatelessWidget {
 
 
   //Render the view of the actor
-  Widget _actorRenderView(BuildContext context, ActorModel actor) => Column(
-    children: [
-      Text('qlq'),
+  Widget _actorRenderView(BuildContext context, ActorModel actor) =>
+  Stack(
+    children: const [
+      ReturnButtonComponent(icon: Icons.chevron_left),
       // _actorImage(actor),
       // _actorName(actor),
       // _actorBiography(actor),
     ],
   );
 
+    //Widget for the return button at the top of the page
+
 
 }
+

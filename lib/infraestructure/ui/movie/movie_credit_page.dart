@@ -1,5 +1,6 @@
 //Flutter imports
 // ignore_for_file: library_private_types_in_public_api
+import 'package:avila_tek_test/infraestructure/ui/components/return_button_component.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -79,7 +80,7 @@ class MovieCreditPage extends StatelessWidget {
       child: Stack(
         children: [
           _backgroundImage(context),
-          _returnButton(context),
+          const ReturnButtonComponent(icon: Icons.close),
           _renderMovieCredits(context, movieCast),
           ],
         ),
@@ -97,33 +98,6 @@ class MovieCreditPage extends StatelessWidget {
         width: double.infinity,
       ),
     );
-
-
-  //Widget for the return button at the top of the page
-  Widget _returnButton(BuildContext context) =>
-    Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Container(
-          margin: const EdgeInsets.all(10),
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              primary: colorPrimary,
-              shape: const CircleBorder(),
-              padding: const EdgeInsets.all(0)
-            ),
-            child: const Icon(
-              Icons.close,
-              size: 25,
-            ),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            ),
-        ),
-        ],
-      );
 
 
   //Widget for the movie credits

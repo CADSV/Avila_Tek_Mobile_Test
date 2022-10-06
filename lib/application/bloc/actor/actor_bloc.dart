@@ -2,6 +2,8 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:async';
+import 'package:avila_tek_test/application/use_cases/actor/get_actor_movies_use_case.dart';
+import 'package:avila_tek_test/domain/models/movies/popular_movies_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,6 +25,8 @@ class ActorBloc extends Bloc<ActorEvent, ActorState> {
   final NavigatorServiceContract _navigatorManager = NavigatorServiceContract.get();
 
   final GetActorInfoUseCaseContract _getActorInfoUseCase = GetActorInfoUseCaseContract.get();
+
+  final GetActorMoviesUseCaseContract _getActorMoviesUseCase = GetActorMoviesUseCaseContract.get();
 
    //Constructor
   //You have to declare the StateInitial as the first state
@@ -53,13 +57,19 @@ class ActorBloc extends Bloc<ActorEvent, ActorState> {
   void _fetchBasicActorDataEventToState(ActorEventFetchBasicData event, Emitter<ActorState> emit) async {
     emit(ActorStateLoading());
 
-    var response =  await _getActorInfoUseCase.run(event.actorId); //Execute the use case
+    var responseActorInfo =  await _getActorInfoUseCase.run(event.actorId); //Execute the use case
 
-    if(response != null){
-      var actorResponse =  getActorModelFromJson(response); //Parse the response to a DomainModel
+    var responseActorMovies = await _getActorMoviesUseCase.run(event.actorId);
 
+    if(responseActorInfo != null && responseActorMovies != null){
 
-      _actorStreamController.sink.add(actorResponse); //Add the list of movies to the stream
+      var actorInfoResponse =  getActorModelFromJson(responseActorInfo); //Parse the response to a DomainModel
+
+      var actorMoviesResponse = getPopularMoviesModelFromJson(responseActorMovies);
+
+      actorInfoResponse.movies = actorMoviesResponse.results; //Add the movies to the actor
+
+      _actorStreamController.sink.add(actorInfoResponse); //Add the list of movies to the stream
 
     } else {
       _showDialog(event.context, TextConstant.sorry.text, TextConstant.errorOcurred.text);

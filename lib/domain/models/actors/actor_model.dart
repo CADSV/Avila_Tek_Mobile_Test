@@ -56,7 +56,7 @@ class ActorModel {
     adult: json['adult'],
     imdbId: json['imdb_id'],
     homepage: json['homepage'],
-    movies: List<MovieModel>.from(json['movies'].map((x) => MovieModel.fromJson(x))),
+    // movies: List<MovieModel>.from(json['movies'].map((x) => MovieModel.fromJson(x))),
   );
 
 
