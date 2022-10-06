@@ -15,7 +15,7 @@ class RoutesManager {
       case '/feed':
         return MaterialPageRoute(builder: (context) => const FeedPage());
 
-      case '/movieCredits':
+      case '/movieCredit':
         return MaterialPageRoute(builder: (context) => MovieCreditPage(
           movieModel: arguments as MovieModel,
         ));

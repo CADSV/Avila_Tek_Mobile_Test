@@ -2,6 +2,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:async';
+import 'package:avila_tek_test/application/use_cases/movies/get_movie_credits_use_case.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,6 +21,8 @@ class MovieCreditBloc extends Bloc<MovieCreditEvent, MovieCreditState> {
 
   //Instances of use cases:
   final NavigatorServiceContract _navigatorManager = NavigatorServiceContract.get();
+
+  final GetMovieCreditsUseCaseContract _getMovieCreditsUseCase = GetMovieCreditsUseCaseContract.get();
 
    //Constructor
   //You have to declare the StateInitial as the first state
@@ -48,7 +51,7 @@ class MovieCreditBloc extends Bloc<MovieCreditEvent, MovieCreditState> {
   void _fetchBasicMovieCreditDataEventToState(MovieCreditEventFetchBasicData event, Emitter<MovieCreditState> emit) async {
     emit(MovieCreditStateLoading());
 
-    var response = null;// await _getMoviesMovieCreditUseCase.run(); //Execute the use case
+    var response =  await _getMovieCreditsUseCase.run(event.movieId); //Execute the use case
 
     if(response != null){
       var movieCreditResponse =  getMovieCreditModelFromJson(response); //Parse the response to a DomainModel

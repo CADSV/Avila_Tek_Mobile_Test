@@ -15,7 +15,7 @@ class MovieCreditPage extends StatelessWidget {
 
   final MovieModel movieModel;
 
-  static const routeName = '/movieCredits';
+  static const routeName = '/movieCredit';
 
   const MovieCreditPage({Key? key,
   required this.movieModel}) : super(key: key);
@@ -41,7 +41,7 @@ class MovieCreditPage extends StatelessWidget {
   Widget _body(BuildContext context, MovieCreditState state) {
 
     if(state is MovieCreditStateInitial) {
-      context.read<MovieCreditBloc>().add(MovieCreditEventFetchBasicData(context: context));
+      context.read<MovieCreditBloc>().add(MovieCreditEventFetchBasicData(context: context, movieId: movieModel.id.toString()));
     }
 
     return Stack(
@@ -68,8 +68,8 @@ class MovieCreditPage extends StatelessWidget {
 
 
     //Widget for the Feed Page
-  Widget _movieCreditRenderView(BuildContext context, List<MovieCast> moviesList) => 
-    Text('Movie Credit Page');
+  Widget _movieCreditRenderView(BuildContext context, List<MovieCast> movieCast) => 
+    Text(movieModel.title!);
 
 
 }

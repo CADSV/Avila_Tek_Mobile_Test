@@ -7,7 +7,8 @@ abstract class MovieCreditEvent {}
 
 class MovieCreditEventFetchBasicData extends MovieCreditEvent {
   final BuildContext context;
-  MovieCreditEventFetchBasicData({required this.context});
+  final String movieId;
+  MovieCreditEventFetchBasicData({required this.context, required this.movieId});
 }
 
 class MovieCreditEventNavigateTo extends MovieCreditEvent {

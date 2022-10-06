@@ -143,7 +143,7 @@ class _FeedPageState extends State<FeedPage> {
           } else {
 
           return GestureDetector(
-            // onTap: ()=>onSelectMovie(moviesModel.results![index] as T),
+            onTap: ()=> context.read<FeedBloc>().add(FeedEventNavigateTo('/movieCredit', moviesList[index])),
               child: SizedBox(
                 height: index % 2 != 0 ?  250 :  140,
                 child: MovieCardComponent(movie: moviesList[index]),

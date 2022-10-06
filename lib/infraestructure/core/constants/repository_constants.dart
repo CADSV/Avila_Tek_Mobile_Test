@@ -35,7 +35,7 @@ extension RepositoryParameterPathConstantExtension on RepositoryParameterPathCon
   String get path {
     switch (this) {
       case RepositoryParameterPathConstant.movieId:
-        return '{movieId}';
+        return '{movie_id}';
     }
   }
 }
