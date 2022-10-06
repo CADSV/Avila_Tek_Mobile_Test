@@ -12,6 +12,7 @@ import 'package:avila_tek_test/infraestructure/ui/components/base_ui_component.d
 import 'package:avila_tek_test/application/bloc/movie_credit/movie_credit_bloc.dart';
 import 'package:avila_tek_test/domain/models/movies/popular_movies_model.dart';
 import 'package:avila_tek_test/domain/models/movies/movie_credits_model.dart';
+import 'package:avila_tek_test/domain/services/calculate_movie_rating_percentage_service.dart';
 
 
 class MovieCreditPage extends StatelessWidget {
@@ -167,7 +168,7 @@ class MovieCreditPage extends StatelessWidget {
       width: double.infinity,
       margin: const EdgeInsets.only(bottom: 10, left: 20),
       child: Text(
-        '${(movieModel.voteAverage!*10).toStringAsFixed(0)}% User Score',
+        '${(CalculateMovieRatingPercentageService.getMovieRatingPercentage(movieModel.voteAverage!)).toStringAsFixed(0)}% User Score',
         maxLines: 2,
         style: const TextStyle(
           color: colorWhite,

@@ -12,6 +12,7 @@ import 'package:avila_tek_test/infraestructure/ui/components/base_ui_component.d
 import 'package:avila_tek_test/infraestructure/ui/styles/colors.dart';
 import 'package:avila_tek_test/application/bloc/feed/feed_bloc.dart';
 import 'package:avila_tek_test/domain/models/movies/popular_movies_model.dart';
+import 'package:avila_tek_test/domain/services/calculate_movie_rating_percentage_service.dart';
 
 //Its the main page of the app.
 class FeedPage extends StatefulWidget {
@@ -148,7 +149,7 @@ class _FeedPageState extends State<FeedPage> {
                 height: index % 2 != 0 ?  250 :  140,
                 child: CardComponent(
                   title: moviesList[index].title,
-                  subtitle: '${(moviesList[index].voteAverage!*10).toStringAsFixed(0)}% User Score',
+                  subtitle: '${(CalculateMovieRatingPercentageService.getMovieRatingPercentage(moviesList[index].voteAverage!)).toStringAsFixed(0)}% User Score',
                   imagePath: moviesList[index].posterPath,
                   cardId: moviesList[index].id!.toString(),
                 ),
