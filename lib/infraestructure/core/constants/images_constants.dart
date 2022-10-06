@@ -2,6 +2,7 @@ enum ImagesConstant {
   movieDBLogo,
   avilaTek,
   movieDB,
+  empty,
 }
 
 const imageBase= 'assets/images/';
@@ -19,6 +20,9 @@ extension ImagesConstantExtension on ImagesConstant {
 
       case ImagesConstant.movieDB:
         return '${imageBase}movieDB.png';
+
+      case ImagesConstant.empty:
+        return '${imageBase}empty.png';
     }
   }
 }

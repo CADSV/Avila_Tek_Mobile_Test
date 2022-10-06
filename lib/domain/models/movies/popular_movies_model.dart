@@ -2,6 +2,8 @@ import 'dart:convert';
 
 PopularMoviesModel getPopularMoviesModelFromJson(String str) => PopularMoviesModel.fromJson(json.decode(str));
 
+
+///PopularMoviesModel: Model for popular movies.
 class PopularMoviesModel {
 PopularMoviesModel({
     this.page,
@@ -31,6 +33,7 @@ PopularMoviesModel({
 }
 
 
+///MovieModel: Model for a movie.
 class MovieModel {
   MovieModel({
     this.adult,

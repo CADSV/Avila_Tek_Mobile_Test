@@ -1,17 +1,17 @@
 //Flutter imports
 // ignore_for_file: library_private_types_in_public_api
 
-import 'package:avila_tek_test/infraestructure/ui/components/nav_bar_component.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 //Project imports
-import 'package:avila_tek_test/infraestructure/ui/components/movie_card_component.dart';
-import 'package:avila_tek_test/domain/models/movies/popular_movies_model.dart';
+import 'package:avila_tek_test/infraestructure/ui/components/card_component.dart';
+import 'package:avila_tek_test/infraestructure/ui/components/nav_bar_component.dart';
 import 'package:avila_tek_test/infraestructure/ui/components/loading_component.dart';
-import 'package:avila_tek_test/application/bloc/feed/feed_bloc.dart';
 import 'package:avila_tek_test/infraestructure/ui/components/base_ui_component.dart';
 import 'package:avila_tek_test/infraestructure/ui/styles/colors.dart';
+import 'package:avila_tek_test/application/bloc/feed/feed_bloc.dart';
+import 'package:avila_tek_test/domain/models/movies/popular_movies_model.dart';
 
 //Its the main page of the app.
 class FeedPage extends StatefulWidget {
@@ -90,8 +90,6 @@ class _FeedPageState extends State<FeedPage> {
     ),
   );
 
-  
-
 
    //Widget Body
   Widget _body(BuildContext context, FeedState state) {
@@ -145,10 +143,15 @@ class _FeedPageState extends State<FeedPage> {
           } else {
 
           return GestureDetector(
-            // onTap: ()=>onSelectMovie(moviesModel.results![index] as T),
+            onTap: ()=> context.read<FeedBloc>().add(FeedEventNavigateTo('/movieCredit', moviesList[index])),
               child: SizedBox(
                 height: index % 2 != 0 ?  250 :  140,
-                child: MovieCardComponent(movie: moviesList[index]),
+                child: CardComponent(
+                  title: moviesList[index].title,
+                  subtitle: '${(moviesList[index].voteAverage!*10).toStringAsFixed(0)}% User Score',
+                  imagePath: moviesList[index].posterPath,
+                  cardId: moviesList[index].id!.toString(),
+                ),
               ));
           }
         }),

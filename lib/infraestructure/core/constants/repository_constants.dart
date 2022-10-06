@@ -27,9 +27,24 @@ extension RepositoryConstantExtension on RepositoryConstant {
   }
 }
 
+enum RepositoryParameterPathConstant {
+  movieId
+}
+
+extension RepositoryParameterPathConstantExtension on RepositoryParameterPathConstant {
+  String get path {
+    switch (this) {
+      case RepositoryParameterPathConstant.movieId:
+        return '{movie_id}';
+    }
+  }
+}
+
+
 ///RepositoryPathConstant: Enum for endpoints path.
 enum RepositoryPathConstant {
-  moviesFeed
+  moviesFeed,
+  movieCredits,
 }
 
 extension RepositoryPathConstantExtension on RepositoryPathConstant {
@@ -37,6 +52,9 @@ extension RepositoryPathConstantExtension on RepositoryPathConstant {
     switch (this) {
       case RepositoryPathConstant.moviesFeed:
         return 'movie/popular?api_key=$movieApiKey&page=';
+
+      case RepositoryPathConstant.movieCredits:
+        return 'movie/{movie_id}/credits?api_key=$movieApiKey';
 
     }
   }

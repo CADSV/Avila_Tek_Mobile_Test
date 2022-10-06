@@ -27,7 +27,7 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
   //You have to declare the StateInitial as the first state
   FeedBloc() : super(FeedStateInitial()){
     on<FeedEventFetchBasicData>(_fetchBasicFeedDataEventToState);
-    on<FeedEventNavigateToWith>(_navigateToWithEventToState);
+    on<FeedEventNavigateTo>(_navigateToEventToState);
     on<FeedEventFetchMoreMovies>(_fetchMoreMoviesEventToState);
   }
 
@@ -44,9 +44,9 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
 
    ///This method is called when the event is [FeedEventNavigateToWith]
   ///It navigates to the specified page.
-  void _navigateToWithEventToState(FeedEventNavigateToWith event, Emitter<FeedState> emit) async {
+  void _navigateToEventToState(FeedEventNavigateTo event, Emitter<FeedState> emit) async {
     _dispose();
-    _navigatorManager.navigateToWithReplacement(event.routeName, arguments: event.arguments);
+    _navigatorManager.navigateTo(event.routeName, arguments: event.arguments);
   }
 
 
