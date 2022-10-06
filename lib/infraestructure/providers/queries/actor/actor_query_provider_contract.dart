@@ -26,7 +26,7 @@ class _ActorQueryProvider extends ActorQueryProviderContract {
   Future getActorInfo(String actorId) async {
     final response = await getIt<RepositoryManager>()
     .request(operation: RepositoryConstant.operationGet.key,
-    endpoint: RepositoryPathConstant.actorInfo.path.toString().replaceFirst(RepositoryParameterPathConstant.actorId.path, actorId))
+    endpoint: RepositoryPathConstant.moviesByActor.path.toString().replaceFirst(RepositoryParameterPathConstant.actorId.path, actorId))
     .catchError((onError) {
 
       return null;

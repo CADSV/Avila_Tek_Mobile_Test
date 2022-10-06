@@ -50,7 +50,7 @@ enum RepositoryPathConstant {
   moviesFeed,
   movieCredits,
   actorInfo,
-  // moviesByActor,
+  moviesByActor,
 }
 
 extension RepositoryPathConstantExtension on RepositoryPathConstant {
@@ -63,7 +63,10 @@ extension RepositoryPathConstantExtension on RepositoryPathConstant {
         return 'movie/{movie_id}/credits?api_key=$movieApiKey';
 
       case RepositoryPathConstant.actorInfo:
-        return 'person/{actor_id}?api_key=$movieApiKey&apend_to_response=credits';
+        return 'person/{actor_id}?api_key=$movieApiKey&append_to_response=credits';
+
+      case RepositoryPathConstant.moviesByActor:
+        return 'discover/movie?api_key=$movieApiKey&with_cast={actor_id}&page=1';
 
     }
   }
