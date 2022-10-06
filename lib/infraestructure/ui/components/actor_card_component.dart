@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 
 //Project imports
 import 'package:avila_tek_test/infraestructure/core/constants/images_constants.dart';
-import 'package:avila_tek_test/domain/models/movies/popular_movies_model.dart';
 import 'package:avila_tek_test/infraestructure/ui/styles/colors.dart';
+import 'package:avila_tek_test/domain/models/movies/movie_credits_model.dart';
 
 
-///This component is used to render the movie card in the feed page.
-class MovieCardComponent extends StatelessWidget {
+///This component is used to render the actor card in the movie credit page.
+class ActorCardComponent extends StatelessWidget {
 
-  final MovieModel movie;
-  const MovieCardComponent({
+  final MovieCast actor;
+  const ActorCardComponent({
     Key? key,
-    required this.movie,
+    required this.actor,
   }) : super(key: key);
 
 
@@ -32,15 +32,15 @@ class MovieCardComponent extends StatelessWidget {
             ClipRRect( //IMAGE
               borderRadius: const BorderRadius.all(Radius.circular(10.0)),
               child: Hero(
-                tag: movie.id.toString(),
+                tag: actor.id.toString(),
                 child: Image.network(
-                  imageUrl + movie.posterPath!,
+                  imageUrl + actor.profilePath!,
                   fit: BoxFit.fill,
                   height: double.infinity,
                   width: double.infinity,
                 ),
               )),
-            Column( //MOVIE TITLE
+            Column( //ACTOR NAME
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
@@ -48,8 +48,8 @@ class MovieCardComponent extends StatelessWidget {
                   color: Colors.transparent,
                   padding: const EdgeInsets.only(bottom: 2, left: 8),
                   child: Text(
-                    movie.title!,
-                    maxLines: 5,
+                    actor.name!,
+                    maxLines: 2,
                     textAlign: TextAlign.start,
                     style: const TextStyle(
                       color: colorWhite,
@@ -58,13 +58,13 @@ class MovieCardComponent extends StatelessWidget {
                     ),
                   )
                 ),
-                Container( //MOVIE RATING
+                Container( //ACTOR CHARACTER
                   width: double.infinity,
                   padding: const EdgeInsets.only(bottom: 8, left: 8),
                   color: Colors.transparent,
                   child: Text(
-                    '${(movie.voteAverage!*10).toStringAsFixed(0)}% User Score',
-                    maxLines: 5,
+                    actor.character!,
+                    maxLines: 2,
                     textAlign: TextAlign.start,
                     style: const TextStyle(
                       color: colorWhite,
