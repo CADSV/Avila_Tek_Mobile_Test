@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 //Project imports
+import 'package:avila_tek_test/infraestructure/ui/components/card_component.dart';
 import 'package:avila_tek_test/infraestructure/ui/components/nav_bar_component.dart';
-import 'package:avila_tek_test/infraestructure/ui/components/movie_card_component.dart';
 import 'package:avila_tek_test/infraestructure/ui/components/loading_component.dart';
 import 'package:avila_tek_test/infraestructure/ui/components/base_ui_component.dart';
 import 'package:avila_tek_test/infraestructure/ui/styles/colors.dart';
@@ -146,7 +146,12 @@ class _FeedPageState extends State<FeedPage> {
             onTap: ()=> context.read<FeedBloc>().add(FeedEventNavigateTo('/movieCredit', moviesList[index])),
               child: SizedBox(
                 height: index % 2 != 0 ?  250 :  140,
-                child: MovieCardComponent(movie: moviesList[index]),
+                child: CardComponent(
+                  title: moviesList[index].title!,
+                  subtitle: '${(moviesList[index].voteAverage!*10).toStringAsFixed(0)}% User Score',
+                  imagePath: moviesList[index].posterPath!,
+                  cardId: moviesList[index].id!.toString(),
+                ),
               ));
           }
         }),

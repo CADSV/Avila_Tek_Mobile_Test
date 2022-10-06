@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 //Project imports:
+import 'package:avila_tek_test/infraestructure/ui/components/card_component.dart';
 import 'package:avila_tek_test/infraestructure/ui/components/loading_component.dart';
 import 'package:avila_tek_test/infraestructure/core/constants/images_constants.dart';
-import 'package:avila_tek_test/infraestructure/ui/components/actor_card_component.dart';
 import 'package:avila_tek_test/infraestructure/ui/styles/colors.dart';
 import 'package:avila_tek_test/infraestructure/ui/components/base_ui_component.dart';
 import 'package:avila_tek_test/application/bloc/movie_credit/movie_credit_bloc.dart';
@@ -200,7 +200,12 @@ class MovieCreditPage extends StatelessWidget {
 
             return GestureDetector(
               // onTap: ()=> context.read<FeedBloc>().add(FeedEventNavigateTo('/movieCredit', moviesList[index])),
-                child: ActorCardComponent(actor: movieCast[index]),
+                child: CardComponent(
+                  title: movieCast[index].name!,
+                  subtitle: movieCast[index].character!,
+                  imagePath: movieCast[index].profilePath!,
+                  cardId: movieCast[index].id.toString(),
+                ),
               );
             },
           ),
