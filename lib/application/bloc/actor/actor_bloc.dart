@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:avila_tek_test/infraestructure/core/constants/text_constants.dart';
 import 'package:avila_tek_test/infraestructure/ui/components/dialog_component.dart';
 import 'package:avila_tek_test/infraestructure/core/navigator_manager.dart';
+import 'package:avila_tek_test/application/use_cases/actor/get_actor_info_use_case.dart';
 import 'package:avila_tek_test/domain/models/actors/actor_model.dart';
 part 'actor_event.dart';
 part 'actor_state.dart';
@@ -20,6 +21,8 @@ class ActorBloc extends Bloc<ActorEvent, ActorState> {
 
   //Instances of use cases:
   final NavigatorServiceContract _navigatorManager = NavigatorServiceContract.get();
+
+  final GetActorInfoUseCaseContract _getActorInfoUseCase = GetActorInfoUseCaseContract.get();
 
    //Constructor
   //You have to declare the StateInitial as the first state
@@ -50,7 +53,7 @@ class ActorBloc extends Bloc<ActorEvent, ActorState> {
   void _fetchBasicActorDataEventToState(ActorEventFetchBasicData event, Emitter<ActorState> emit) async {
     emit(ActorStateLoading());
 
-    var response =  null;//await _getMoviesActorUseCase.run(_pageNumber); //Execute the use case
+    var response =  await _getActorInfoUseCase.run(event.actorId); //Execute the use case
 
     if(response != null){
       var actorResponse =  getActorModelFromJson(response); //Parse the response to a DomainModel

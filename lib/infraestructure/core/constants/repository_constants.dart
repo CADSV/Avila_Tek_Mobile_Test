@@ -49,7 +49,7 @@ extension RepositoryParameterPathConstantExtension on RepositoryParameterPathCon
 enum RepositoryPathConstant {
   moviesFeed,
   movieCredits,
-  actorDetail,
+  actorInfo,
   // moviesByActor,
 }
 
@@ -62,7 +62,7 @@ extension RepositoryPathConstantExtension on RepositoryPathConstant {
       case RepositoryPathConstant.movieCredits:
         return 'movie/{movie_id}/credits?api_key=$movieApiKey';
 
-      case RepositoryPathConstant.actorDetail:
+      case RepositoryPathConstant.actorInfo:
         return 'person/{actor_id}?api_key=$movieApiKey&apend_to_response=credits';
 
     }

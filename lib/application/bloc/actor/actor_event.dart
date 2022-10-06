@@ -7,7 +7,8 @@ abstract class ActorEvent {}
 
 class ActorEventFetchBasicData extends ActorEvent {
   final BuildContext context;
-  ActorEventFetchBasicData({required this.context});
+  final String actorId;
+  ActorEventFetchBasicData({required this.context, required this.actorId});
 }
 
 class ActorEventNavigateTo extends ActorEvent {

@@ -1,4 +1,5 @@
 //Flutter imports
+import 'package:avila_tek_test/application/use_cases/actor/get_actor_info_use_case.dart';
 import 'package:avila_tek_test/application/use_cases/movies/get_movie_credits_use_case.dart';
 import 'package:get_it/get_it.dart';
 
@@ -21,5 +22,6 @@ class InjectionManager {
     //USE CASES INJECTION
     GetMoviesFeedUseCaseContract.inject();
     GetMovieCreditsUseCaseContract.inject();
+    GetActorInfoUseCaseContract.inject();
   }
 }
