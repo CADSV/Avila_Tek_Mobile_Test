@@ -28,7 +28,8 @@ extension RepositoryConstantExtension on RepositoryConstant {
 }
 
 enum RepositoryParameterPathConstant {
-  movieId
+  movieId,
+  actorId,
 }
 
 extension RepositoryParameterPathConstantExtension on RepositoryParameterPathConstant {
@@ -36,6 +37,9 @@ extension RepositoryParameterPathConstantExtension on RepositoryParameterPathCon
     switch (this) {
       case RepositoryParameterPathConstant.movieId:
         return '{movie_id}';
+
+      case RepositoryParameterPathConstant.actorId:
+        return '{actor_id}';
     }
   }
 }
@@ -45,6 +49,8 @@ extension RepositoryParameterPathConstantExtension on RepositoryParameterPathCon
 enum RepositoryPathConstant {
   moviesFeed,
   movieCredits,
+  actorDetail,
+  // moviesByActor,
 }
 
 extension RepositoryPathConstantExtension on RepositoryPathConstant {
@@ -55,6 +61,9 @@ extension RepositoryPathConstantExtension on RepositoryPathConstant {
 
       case RepositoryPathConstant.movieCredits:
         return 'movie/{movie_id}/credits?api_key=$movieApiKey';
+
+      case RepositoryPathConstant.actorDetail:
+        return 'person/{actor_id}?api_key=$movieApiKey&apend_to_response=credits';
 
     }
   }
