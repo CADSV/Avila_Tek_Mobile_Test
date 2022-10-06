@@ -9,9 +9,9 @@ import 'package:avila_tek_test/infraestructure/ui/styles/colors.dart';
 ///This component is used to render cards.
 class CardComponent extends StatelessWidget {
 
-  final String title;
-  final String subtitle;
-  final String imagePath;
+  final String? title;
+  final String? subtitle;
+  final String? imagePath;
   final String cardId;
   const CardComponent({
     Key? key,
@@ -53,12 +53,16 @@ class CardComponent extends StatelessWidget {
       borderRadius: const BorderRadius.all(Radius.circular(10.0)),
       child: Hero(
         tag: cardId,
-        child: Image.network(
-          imageUrl + imagePath,
+        child: imagePath !=  null ? Image.network(
+          imageUrl + imagePath!,
           fit: BoxFit.fill,
           height: double.infinity,
           width: double.infinity,
-        ),
+        ) : Image.asset(
+          ImagesConstant.empty.image,
+          fit: BoxFit.fill,
+          height: double.infinity,
+          width: double.infinity,),
       )
     );
 
@@ -70,13 +74,13 @@ class CardComponent extends StatelessWidget {
       color: Colors.transparent,
       padding: const EdgeInsets.only(bottom: 2, left: 8),
       child: Text(
-        title,
+        title != null ? title! : '',
         maxLines: 5,
         textAlign: TextAlign.start,
         style: const TextStyle(
           color: colorWhite,
           fontSize: 16,
-          fontWeight: FontWeight.bold
+          fontWeight: FontWeight.bold,
         ),
       )
     );
@@ -89,7 +93,7 @@ class CardComponent extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 8, left: 8),
       color: Colors.transparent,
       child: Text(
-        subtitle,
+        subtitle != null ? subtitle! : '',
         maxLines: 5,
         textAlign: TextAlign.start,
         style: const TextStyle(

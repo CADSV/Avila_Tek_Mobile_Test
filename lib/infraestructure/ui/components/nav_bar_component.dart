@@ -1,4 +1,6 @@
 //Flutter imports:
+import 'package:avila_tek_test/infraestructure/core/constants/text_constants.dart';
+import 'package:avila_tek_test/infraestructure/ui/components/dialog_component.dart';
 import 'package:avila_tek_test/infraestructure/ui/feed/feed_page.dart';
 import 'package:flutter/material.dart';
 
@@ -32,18 +34,48 @@ class NavBar extends StatelessWidget {
               );
             },
           ),
-          const ListTile(
-            leading: Icon(Icons.person),
-            title: Text('Actors'),
+          ListTile(
+            leading: const Icon(Icons.person),
+            title: const Text('Actors'),
             iconColor: colorPrimary,
-            onTap: null,
+            onTap: () async {
+              await showDialog(
+                  context: context,
+                  builder: (BuildContext superContext) => DialogComponent(
+                    textTitle: TextConstant.sorry.text,
+                    textQuestion: TextConstant.pageInConstruction.text,
+                  )
+              );
+            },
           ),
-          const ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('Settings'),
+          ListTile(
+            leading: const Icon(Icons.settings),
+            title: const Text('Settings'),
             iconColor: colorPrimary,
-            onTap: null,
+            onTap: () async {
+              await showDialog(
+                  context: context,
+                  builder: (BuildContext superContext) => DialogComponent(
+                    textTitle: TextConstant.sorry.text,
+                    textQuestion: TextConstant.pageInConstruction.text,
+                  )
+              );
+            },
           ),
+          ListTile(
+            leading: const Icon(Icons.logout),
+            title: const Text('Logout'),
+            iconColor: colorPrimary,
+            onTap: () async {
+              await showDialog(
+                  context: context,
+                  builder: (BuildContext superContext) => DialogComponent(
+                    textTitle: TextConstant.sorry.text,
+                    textQuestion: TextConstant.pageInConstruction.text,
+                  )
+              );
+            },
+          )
         ],
       ),
     );

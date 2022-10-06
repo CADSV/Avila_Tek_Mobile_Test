@@ -147,9 +147,9 @@ class _FeedPageState extends State<FeedPage> {
               child: SizedBox(
                 height: index % 2 != 0 ?  250 :  140,
                 child: CardComponent(
-                  title: moviesList[index].title!,
+                  title: moviesList[index].title,
                   subtitle: '${(moviesList[index].voteAverage!*10).toStringAsFixed(0)}% User Score',
-                  imagePath: moviesList[index].posterPath!,
+                  imagePath: moviesList[index].posterPath,
                   cardId: moviesList[index].id!.toString(),
                 ),
               ));
