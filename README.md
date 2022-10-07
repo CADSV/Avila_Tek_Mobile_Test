@@ -75,6 +75,6 @@ This project is distributed under the MIT License. Please see `LICENSE.md` file 
 ## Credits
 
 ## Contact
-CADSV [GitHub](https://github.com/CADSV)
-Project Link [Avila_Tek_Mobile_Test](https://github.com/CADSV/Avila_Tek_Mobile_Test)
+* CADSV [GitHub](https://github.com/CADSV)
+* Project Link [Avila_Tek_Mobile_Test](https://github.com/CADSV/Avila_Tek_Mobile_Test)
 
