@@ -1,8 +1,7 @@
 //Flutter imports
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, unnecessary_getters_setters
 
 import 'dart:async';
-import 'package:avila_tek_test/application/use_cases/actor/get_popular_actors_use_case.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:avila_tek_test/infraestructure/core/constants/text_constants.dart';
 import 'package:avila_tek_test/infraestructure/ui/components/dialog_component.dart';
 import 'package:avila_tek_test/infraestructure/core/navigator_manager.dart';
+import 'package:avila_tek_test/application/use_cases/actor/get_popular_actors_use_case.dart';
 import 'package:avila_tek_test/domain/models/actors/popular_actors_model.dart';
 part 'popular_actors_event.dart';
 part 'popular_actors_state.dart';
@@ -35,10 +35,16 @@ class PopularActorsBloc extends Bloc<PopularActorsEvent, PopularActorsState> {
 
   //Variables
 
-  String _pageNumber = '1'; //
+  String _pageNumber = '1'; //This is the page number of the popular actors response. Starts in 1
+  bool _fetchingData = false; //This is a flag to know if the bloc is fetching data or not
 
   //Getters
   Stream<List<Actor>> get popularActorsStream => _popularActorsStreamController.stream;
+  bool get fetchingData => _fetchingData;
+
+
+  //Setters
+  set fetchingData(bool value) => _fetchingData = value;
 
 
   //Methods
@@ -70,6 +76,8 @@ class PopularActorsBloc extends Bloc<PopularActorsEvent, PopularActorsState> {
 
       _pageNumber = (popularActorsResponse.page! + 1).toString(); //Update the page number for the next request
 
+      fetchingData = false; //Update the fetching data value
+
       _popularActorsStreamController.sink.add(popularActorsList); //Add the list of actors to the stream
 
     } else {
@@ -78,7 +86,7 @@ class PopularActorsBloc extends Bloc<PopularActorsEvent, PopularActorsState> {
 
     emit(PopularActorsStateHideLoading());
   }
-  
+
 
 
   ///This method is called when the event [PopularActorsEventFetchMoreActors] is called
@@ -95,6 +103,8 @@ class PopularActorsBloc extends Bloc<PopularActorsEvent, PopularActorsState> {
       newPopularActorsList.addAll(popularActorsResponse.results!); //Extract the list of actors from the response
 
       _pageNumber = (popularActorsResponse.page! + 1).toString(); //Update the page number for the next request
+
+      fetchingData = false; //Update the fetching data value
 
       _popularActorsStreamController.sink.add(newPopularActorsList); //Add the list of actors to the stream
 

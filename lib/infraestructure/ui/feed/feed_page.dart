@@ -32,7 +32,7 @@ class _FeedPageState extends State<FeedPage> {
   //Controllers
   final _scrollController = ScrollController();
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  bool _isLoading = false; //for the infinite scroll
+  bool _reachedBottomScroll = false; //for the infinite scroll
 
 
   @override
@@ -42,7 +42,7 @@ class _FeedPageState extends State<FeedPage> {
     _scrollController.addListener((){
       if(_scrollController.position.maxScrollExtent  == _scrollController.offset) {
         setState(() {
-          _isLoading = true;
+          _reachedBottomScroll = true;
         });
       }
     });
@@ -138,7 +138,7 @@ class _FeedPageState extends State<FeedPage> {
         scrollDirection: Axis.vertical,
         children: List.generate(moviesList.length + 2, (index)  {
           if(index >= moviesList.length) {
-            if(_isLoading) _fetchNewMovies(context, moviesList);
+            if(_reachedBottomScroll) _fetchNewMovies(context, moviesList);
             return const Center(child: LoadingComponent());
 
           } else {
@@ -161,8 +161,13 @@ class _FeedPageState extends State<FeedPage> {
 
 
     void _fetchNewMovies(BuildContext context, List<MovieModel> moviesList){
-      context.read<FeedBloc>().add(FeedEventFetchMoreMovies(moviesList, context));
-      _isLoading = false;
+
+      if(!context.read<FeedBloc>().fetchingData) { //if we are not fetching data, then call the event tha fetch more data
+
+        context.read<FeedBloc>().fetchingData = true;
+        context.read<FeedBloc>().add(FeedEventFetchMoreMovies(moviesList, context));
+        _reachedBottomScroll = false;
+      }
     }
 
 

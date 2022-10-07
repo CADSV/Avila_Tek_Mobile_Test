@@ -34,9 +34,15 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
   //Variables
 
   String _pageNumber = '1'; //This is the page number of the feed response. Starts in 1
+  bool _fetchingData = false; //This is a flag to know if the bloc is fetching data or not
 
   //Getters
   Stream<List<MovieModel>> get feedStream => _feedStreamController.stream;
+  bool get fetchingData => _fetchingData;
+
+
+  //Setters
+  set fetchingData(bool value) => _fetchingData = value;
 
 
   //Methods
@@ -65,6 +71,8 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
 
       _pageNumber = (popularMoviesResponse.page! + 1).toString(); //Update the page number for the next request
 
+      fetchingData = false; //Update the fetching data variable
+
       _feedStreamController.sink.add(moviesList); //Add the list of movies to the stream
 
     } else {
@@ -90,6 +98,8 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
       newMoviesList.addAll(popularMoviesResponse.results!); //Extract the list of movies from the response
 
       _pageNumber = (popularMoviesResponse.page! + 1).toString(); //Update the page number for the next request
+
+      fetchingData = false; //Update the fetching data variable
 
       _feedStreamController.sink.add(newMoviesList); //Add the list of movies to the stream
 

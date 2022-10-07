@@ -32,7 +32,7 @@ class _PopularActorsPageState extends State<PopularActorsPage> {
   //Controllers
   final _scrollController = ScrollController();
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  bool _isLoading = false; //for the infinite scroll
+  bool _reachedBottomScroll = false; //for the infinite scroll
 
 
   @override
@@ -42,7 +42,7 @@ class _PopularActorsPageState extends State<PopularActorsPage> {
     _scrollController.addListener((){
       if(_scrollController.position.maxScrollExtent  == _scrollController.offset) {
         setState(() {
-          _isLoading = true;
+          _reachedBottomScroll = true;
         });
       }
     });
@@ -138,13 +138,13 @@ class _PopularActorsPageState extends State<PopularActorsPage> {
         scrollDirection: Axis.vertical,
         children: List.generate(actorsList.length + 2, (index)  {
           if(index >= actorsList.length) {
-            if(_isLoading) _fetchNewActors(context, actorsList);
+            if(_reachedBottomScroll) _fetchNewActors(context, actorsList);
             return const Center(child: LoadingComponent());
 
           } else {
 
           return GestureDetector(
-            onTap: ()=> context.read<PopularActorsBloc>().add(PopularActorsEventNavigateTo('/actor', actorsList[index].id.toString())),
+            onTap: () => context.read<PopularActorsBloc>().add(PopularActorsEventNavigateTo('/actor', actorsList[index].id.toString())),
               child: SizedBox(
                 height: index % 2 != 0 ?  250 :  140,
                 child: CardComponent(
@@ -160,8 +160,13 @@ class _PopularActorsPageState extends State<PopularActorsPage> {
 
 
     void _fetchNewActors(BuildContext context, List<Actor> actorsList){
-      context.read<PopularActorsBloc>().add(PopularActorsEventFetchMoreActors(actorsList, context));
-      _isLoading = false;
+
+      if(!context.read<PopularActorsBloc>().fetchingData) { //if we are not fetching data, then call the event tha fetch more data
+
+        context.read<PopularActorsBloc>().fetchingData = true;
+        context.read<PopularActorsBloc>().add(PopularActorsEventFetchMoreActors(actorsList, context));
+        _reachedBottomScroll = false;
+      }
     }
 
 
