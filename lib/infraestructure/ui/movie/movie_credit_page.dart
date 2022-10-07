@@ -1,5 +1,6 @@
 //Flutter imports
 // ignore_for_file: library_private_types_in_public_api
+import 'package:avila_tek_test/infraestructure/ui/components/return_button_component.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,6 +13,7 @@ import 'package:avila_tek_test/infraestructure/ui/components/base_ui_component.d
 import 'package:avila_tek_test/application/bloc/movie_credit/movie_credit_bloc.dart';
 import 'package:avila_tek_test/domain/models/movies/popular_movies_model.dart';
 import 'package:avila_tek_test/domain/models/movies/movie_credits_model.dart';
+import 'package:avila_tek_test/domain/services/calculate_movie_rating_percentage_service.dart';
 
 
 class MovieCreditPage extends StatelessWidget {
@@ -78,7 +80,7 @@ class MovieCreditPage extends StatelessWidget {
       child: Stack(
         children: [
           _backgroundImage(context),
-          _returnButton(context),
+          const ReturnButtonComponent(icon: Icons.close),
           _renderMovieCredits(context, movieCast),
           ],
         ),
@@ -96,33 +98,6 @@ class MovieCreditPage extends StatelessWidget {
         width: double.infinity,
       ),
     );
-
-
-  //Widget for the return button at the top of the page
-  Widget _returnButton(BuildContext context) =>
-    Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Container(
-          margin: const EdgeInsets.all(10),
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              primary: colorPrimary,
-              shape: const CircleBorder(),
-              padding: const EdgeInsets.all(0)
-            ),
-            child: const Icon(
-              Icons.close,
-              size: 25,
-            ),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            ),
-        ),
-        ],
-      );
 
 
   //Widget for the movie credits
@@ -167,7 +142,7 @@ class MovieCreditPage extends StatelessWidget {
       width: double.infinity,
       margin: const EdgeInsets.only(bottom: 10, left: 20),
       child: Text(
-        '${(movieModel.voteAverage!*10).toStringAsFixed(0)}% User Score',
+        '${(CalculateMovieRatingPercentageService.getMovieRatingPercentage(movieModel.voteAverage!)).toStringAsFixed(0)}% User Score',
         maxLines: 2,
         style: const TextStyle(
           color: colorWhite,
@@ -199,7 +174,7 @@ class MovieCreditPage extends StatelessWidget {
           children: List.generate(3, (index)  {
 
             return GestureDetector(
-              // onTap: ()=> context.read<FeedBloc>().add(FeedEventNavigateTo('/movieCredit', moviesList[index])),
+              onTap: ()=> context.read<MovieCreditBloc>().add(MovieCreditEventNavigateTo('/actor', movieCast[index].id.toString())),
                 child: CardComponent(
                   title: movieCast[index].name,
                   subtitle: movieCast[index].character,

@@ -1,10 +1,11 @@
 //Flutter imports:
-import 'package:avila_tek_test/infraestructure/core/constants/text_constants.dart';
-import 'package:avila_tek_test/infraestructure/ui/components/dialog_component.dart';
-import 'package:avila_tek_test/infraestructure/ui/feed/feed_page.dart';
 import 'package:flutter/material.dart';
 
 //Project imports:
+import 'package:avila_tek_test/infraestructure/core/constants/text_constants.dart';
+import 'package:avila_tek_test/infraestructure/ui/components/dialog_component.dart';
+import 'package:avila_tek_test/infraestructure/ui/feed/feed_page.dart';
+import 'package:avila_tek_test/infraestructure/ui/popular_actors/popular_actors_page.dart';
 import 'package:avila_tek_test/infraestructure/core/constants/images_constants.dart';
 import 'package:avila_tek_test/infraestructure/ui/styles/colors.dart';
 
@@ -36,15 +37,12 @@ class NavBar extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.person),
-            title: const Text('Actors'),
+            title: const Text('Popular Actors'),
             iconColor: colorPrimary,
-            onTap: () async {
-              await showDialog(
-                  context: context,
-                  builder: (BuildContext superContext) => DialogComponent(
-                    textTitle: TextConstant.sorry.text,
-                    textQuestion: TextConstant.pageInConstruction.text,
-                  )
+            onTap: (){
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (BuildContext routeContext) => const PopularActorsPage()),
               );
             },
           ),
