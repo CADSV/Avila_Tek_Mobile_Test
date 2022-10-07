@@ -48,6 +48,13 @@ Used below plugings for this project
 * [connectivity_plus: ^2.3.8](https://pub.dev/packages/connectivity_plus)
 * [flutter_launcher_icons: ^0.10.0](https://pub.dev/packages/flutter_launcher_icons)
 
+## Application Architecture
+The app was made using the Hexagonal Architecture, Bloc Pattern, Dependency Injection and SOLID principles, and the flow that follows the data around the app it's shown in the next image
+
+<p align="center">
+  <img src="https://imgur.com/1xGs6m9.png" width="800" height="300" alt="Application Architecture" />
+</p>
+
 
 ## Contributing
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are <b>greatly appreciated</b>.
