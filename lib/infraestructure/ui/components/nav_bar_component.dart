@@ -36,7 +36,7 @@ class NavBar extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.person),
-            title: const Text('Actors'),
+            title: const Text('Popular Actors'),
             iconColor: colorPrimary,
             onTap: () async {
               await showDialog(

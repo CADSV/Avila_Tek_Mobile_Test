@@ -51,6 +51,7 @@ enum RepositoryPathConstant {
   movieCredits,
   actorInfo,
   moviesByActor,
+  popularActors,
 }
 
 extension RepositoryPathConstantExtension on RepositoryPathConstant {
@@ -67,6 +68,9 @@ extension RepositoryPathConstantExtension on RepositoryPathConstant {
 
       case RepositoryPathConstant.moviesByActor:
         return 'discover/movie?api_key=$movieApiKey&with_cast={actor_id}&page=1';
+
+      case RepositoryPathConstant.popularActors:
+        return 'person/popular?api_key=$movieApiKey&page=';
 
     }
   }
