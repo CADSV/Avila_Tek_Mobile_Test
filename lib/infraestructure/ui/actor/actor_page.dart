@@ -154,7 +154,7 @@ class ActorPage extends StatelessWidget {
     Container(
       margin: const EdgeInsets.only(top: 10, right: 20),
       child: Text(
-        actor.biography!,
+        actor.biography == null || actor.biography =='' ? 'No biography available' : actor.biography!,
         style: const TextStyle(
           fontSize: 12,
           fontFamily: 'Baloo 2'
@@ -204,7 +204,7 @@ class ActorPage extends StatelessWidget {
                 children: List.generate(movies.length, (index)  {
 
                     return GestureDetector(
-                      // onTap: ()=> context.read<FeedBloc>().add(FeedEventNavigateTo('/movieCredit', moviesList[index])),
+                      onTap: ()=> context.read<ActorBloc>().add(ActorEventNavigateTo('/movieCredit', movies[index])),
                         child: CardComponent(
                           title: movies[index].title,
                           subtitle: '${(CalculateMovieRatingPercentageService.getMovieRatingPercentage(movies[index].voteAverage!)).toStringAsFixed(0)}% User Score',
