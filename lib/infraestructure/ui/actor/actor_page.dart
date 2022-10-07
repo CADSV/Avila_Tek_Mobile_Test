@@ -1,5 +1,9 @@
 //Flutter imports:
 import 'package:avila_tek_test/domain/models/actors/actor_model.dart';
+import 'package:avila_tek_test/domain/models/movies/popular_movies_model.dart';
+import 'package:avila_tek_test/domain/services/calculate_movie_rating_percentage_service.dart';
+import 'package:avila_tek_test/infraestructure/core/constants/images_constants.dart';
+import 'package:avila_tek_test/infraestructure/ui/components/card_component.dart';
 import 'package:avila_tek_test/infraestructure/ui/components/loading_component.dart';
 import 'package:avila_tek_test/infraestructure/ui/components/return_button_component.dart';
 import 'package:avila_tek_test/infraestructure/ui/styles/colors.dart';
@@ -77,17 +81,145 @@ class ActorPage extends StatelessWidget {
 
   //Render the view of the actor
   Widget _actorRenderView(BuildContext context, ActorModel actor) =>
-  Stack(
-    children: const [
-      ReturnButtonComponent(icon: Icons.chevron_left),
-      // _actorImage(actor),
-      // _actorName(actor),
-      // _actorBiography(actor),
+  ListView(
+    children:  [
+      const ReturnButtonComponent(icon: Icons.chevron_left),
+      _renderActorProfile(context, actor),
+      _renderActorMoviesTitle(),
+      _rendederActorMovies(context, actor.movies!),
     ],
   );
 
-    //Widget for the return button at the top of the page
 
+  //Widget to render the actor profile
+  Widget _renderActorProfile(BuildContext context, ActorModel actor) =>
+    Container(
+      height: MediaQuery.of(context).size.height * 0.20,
+      width: MediaQuery.of(context).size.width,
+      margin: const EdgeInsets.only(top: 20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _actorImage(actor),
+          Expanded(
+            flex: 2,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _actorName(actor),
+                _actorBiography(actor),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+
+
+  //Widget to render the actor image
+  Widget _actorImage(ActorModel actor) =>
+    Container(
+      margin: const EdgeInsets.only(left: 20, right: 20),
+      child: ClipOval(
+        child: Material(
+          color: Colors.transparent,
+          child: Ink.image(
+            image: NetworkImage(
+              imageUrl + actor.profilePath!,
+            ),
+            width: 80,
+            height: 80,
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
+    );
+
+
+  //Widget to render the actor name
+  Widget _actorName(ActorModel actor) =>
+    Text(
+      actor.name!,
+      style: const TextStyle(
+        fontSize: 22,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+
+
+  //Widget to render the actor biography
+  Widget _actorBiography(ActorModel actor) =>
+    Container(
+      margin: const EdgeInsets.only(top: 10, right: 20),
+      child: Text(
+        actor.biography!,
+        style: const TextStyle(
+          fontSize: 12,
+          fontFamily: 'Baloo 2'
+        ),
+        maxLines: 5,
+        overflow: TextOverflow.ellipsis,
+      ),
+    );
+
+
+  //Widget to render the actor movies title
+  Widget _renderActorMoviesTitle() =>
+    Container(
+      margin: const EdgeInsets.only(top: 20, left: 20),
+      child: const Text(
+        'Casted On',
+        style: TextStyle(
+          fontSize: 36,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+
+
+  //Widget to render the actor movies
+  Widget _rendederActorMovies(BuildContext context, List<MovieModel> movies) =>
+    SizedBox(
+      height: MediaQuery.of(context).size.height * 0.52,
+      width: MediaQuery.of(context).size.width,
+      child: Column(
+        children: [
+          Expanded(
+            flex: 2,
+            child: ListView(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              children: [ Padding(
+              padding: const EdgeInsets.all(16),
+              child: GridView.count(
+                crossAxisCount: 2,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                childAspectRatio: 0.72,
+                mainAxisSpacing: 16,
+                crossAxisSpacing: 16,
+                scrollDirection: Axis.vertical,
+                children: List.generate(movies.length, (index)  {
+
+                    return GestureDetector(
+                      // onTap: ()=> context.read<FeedBloc>().add(FeedEventNavigateTo('/movieCredit', moviesList[index])),
+                        child: CardComponent(
+                          title: movies[index].title,
+                          subtitle: '${(CalculateMovieRatingPercentageService.getMovieRatingPercentage(movies[index].voteAverage!)).toStringAsFixed(0)}% User Score',
+                          imagePath: movies[index].posterPath,
+                          cardId: movies[index].id!.toString(),
+                        ));
+                  }
+                ),
+              ),
+              ),],
+            ),
+          ),
+        ],
+      ),
+    );
 
 }
 
