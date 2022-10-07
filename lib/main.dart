@@ -48,7 +48,7 @@ class AvilaTekTest extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.data!) {
-            return FeedPage();
+            return const FeedPage();
           } else {
             return const CircularProgressIndicator(color: Colors.blue);
             // return NoInternetPage();

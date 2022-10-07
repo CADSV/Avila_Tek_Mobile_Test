@@ -13,7 +13,7 @@ extension ImagesConstantExtension on ImagesConstant {
   String get image {
     switch (this) {
       case ImagesConstant.movieDBLogo:
-        return '${iconBase}movieDBLogo.svg';
+        return '${iconBase}movieDBLogo.png';
 
       case ImagesConstant.avilaTek:
         return '${imageBase}avilaTek.png';
