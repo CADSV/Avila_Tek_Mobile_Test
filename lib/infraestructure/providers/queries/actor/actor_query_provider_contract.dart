@@ -12,6 +12,8 @@ abstract class ActorQueryProviderContract {
 
   Future getActorMovies(String actorId);
 
+  Future getPopularActors(String pageNumber);
+
 }
 
 enum ActorQueryProviderError {
@@ -52,4 +54,20 @@ class _ActorQueryProvider extends ActorQueryProviderContract {
 
     return response;
   }
+
+
+  @override
+  Future getPopularActors(String pageNumber) async {
+    final response = await getIt<RepositoryManager>()
+    .request(operation: RepositoryConstant.operationGet.key, endpoint: RepositoryPathConstant.popularActors.path + pageNumber, )
+    .catchError((onError) {
+
+      return null;
+
+    });
+
+    return response;
+  }
+
+
 }

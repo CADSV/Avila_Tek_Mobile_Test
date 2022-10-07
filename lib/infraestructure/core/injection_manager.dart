@@ -1,4 +1,5 @@
 //Flutter imports
+import 'package:avila_tek_test/application/use_cases/actor/get_popular_actors_use_case.dart';
 import 'package:get_it/get_it.dart';
 
 //Project imports
@@ -25,5 +26,6 @@ class InjectionManager {
     GetMovieCreditsUseCaseContract.inject();
     GetActorInfoUseCaseContract.inject();
     GetActorMoviesUseCaseContract.inject();
+    GetPopularActorsUseCaseContract.inject();
   }
 }
