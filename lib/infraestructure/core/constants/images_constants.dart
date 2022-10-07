@@ -3,6 +3,7 @@ enum ImagesConstant {
   avilaTek,
   movieDB,
   empty,
+  noInternet,
 }
 
 const imageBase= 'assets/images/';
@@ -23,6 +24,9 @@ extension ImagesConstantExtension on ImagesConstant {
 
       case ImagesConstant.empty:
         return '${imageBase}empty.png';
+
+      case ImagesConstant.noInternet:
+        return '${imageBase}no_internet.png';
     }
   }
 }
