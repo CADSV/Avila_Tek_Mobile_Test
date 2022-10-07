@@ -45,7 +45,7 @@ class Actor {
     this.profilePath,
     this.adult,
     this.id,
-    this.knownFor,
+    // this.knownFor,
     this.name,
     this.popularity,
   });
@@ -54,7 +54,7 @@ class Actor {
   String? profilePath;
   bool? adult;
   int? id;
-  List<MovieModel>? knownFor;
+  // List<MovieModel>? knownFor;
   String? name;
   double? popularity;
 
@@ -63,7 +63,7 @@ class Actor {
     profilePath: json['profile_path'],
     adult: json['adult'],
     id: json['id'],
-    knownFor: List<MovieModel>.from(json['known_for'].map((x) => MovieModel.fromJson(x))),
+    // knownFor: List<MovieModel>.from(json['known_for'].map((x) => MovieModel.fromJson(x))),
     name: json['name'],
     popularity: json['popularity'].toDouble(),
   );
@@ -73,7 +73,7 @@ class Actor {
     'profile_path': profilePath,
     'adult': adult,
     'id': id,
-    'known_for': List<dynamic>.from(knownFor!.map((x) => x.toJson())),
+    // 'known_for': List<dynamic>.from(knownFor!.map((x) => x.toJson())),
     'name': name,
     'popularity': popularity,
   };

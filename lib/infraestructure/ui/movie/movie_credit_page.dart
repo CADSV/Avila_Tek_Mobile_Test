@@ -174,7 +174,7 @@ class MovieCreditPage extends StatelessWidget {
           children: List.generate(3, (index)  {
 
             return GestureDetector(
-              onTap: ()=> context.read<MovieCreditBloc>().add(MovieCreditEventNavigateTo('/actor', movieCast[index])),
+              onTap: ()=> context.read<MovieCreditBloc>().add(MovieCreditEventNavigateTo('/actor', movieCast[index].id.toString())),
                 child: CardComponent(
                   title: movieCast[index].name,
                   subtitle: movieCast[index].character,

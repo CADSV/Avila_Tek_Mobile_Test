@@ -13,16 +13,15 @@ import 'package:avila_tek_test/application/bloc/actor/actor_bloc.dart';
 import 'package:avila_tek_test/domain/models/actors/actor_model.dart';
 import 'package:avila_tek_test/domain/services/calculate_movie_rating_percentage_service.dart';
 import 'package:avila_tek_test/domain/models/movies/popular_movies_model.dart';
-import 'package:avila_tek_test/domain/models/movies/movie_credits_model.dart';
 
 ///ActorPage: Class that represents the actor page.
 class ActorPage extends StatelessWidget {
 
   static const routeName = '/actor';
 
-  final MovieCast actor;
+  final String actorId;
   const ActorPage({Key? key,
-  required this.actor}) : super(key: key);
+  required this.actorId}) : super(key: key);
 
     @override
   Widget build(BuildContext context) {
@@ -45,7 +44,6 @@ class ActorPage extends StatelessWidget {
 ///Widget AppBar
   PreferredSizeWidget _renderAppBar(BuildContext context) => AppBar(
     backgroundColor: colorWhite,
-    
   );
 
 
@@ -53,7 +51,7 @@ class ActorPage extends StatelessWidget {
   Widget _body(BuildContext context, ActorState state) {
 
     if(state is ActorStateInitial) {
-      context.read<ActorBloc>().add(ActorEventFetchBasicData(context: context, actorId: actor.id.toString()));
+      context.read<ActorBloc>().add(ActorEventFetchBasicData(context: context, actorId: actorId.toString()));
     }
 
     return Stack(
@@ -86,7 +84,8 @@ class ActorPage extends StatelessWidget {
       const ReturnButtonComponent(icon: Icons.chevron_left),
       _renderActorProfile(context, actor),
       _renderActorMoviesTitle(),
-      _rendederActorMovies(context, actor.movies!),
+      if(actor.movies!.isNotEmpty) _rendederActorMovies(context, actor.movies!),
+      if(actor.movies!.isEmpty) _renderNoMoviesFound(),
     ],
   );
 
@@ -126,9 +125,10 @@ class ActorPage extends StatelessWidget {
         child: Material(
           color: Colors.transparent,
           child: Ink.image(
-            image: NetworkImage(
+            image: actor.profilePath != null ?NetworkImage(
               imageUrl + actor.profilePath!,
-            ),
+            ) :
+            AssetImage(ImagesConstant.empty.image) as ImageProvider,
             width: 80,
             height: 80,
             fit: BoxFit.cover,
@@ -204,7 +204,7 @@ class ActorPage extends StatelessWidget {
                 children: List.generate(movies.length, (index)  {
 
                     return GestureDetector(
-                      onTap: ()=> context.read<ActorBloc>().add(ActorEventNavigateTo('/movieCredit', movies[index])),
+                      onTap: ()=> context.read<ActorBloc>().add(ActorEventNavigateTo('/movie_credit', movies[index])),
                         child: CardComponent(
                           title: movies[index].title,
                           subtitle: '${(CalculateMovieRatingPercentageService.getMovieRatingPercentage(movies[index].voteAverage!)).toStringAsFixed(0)}% User Score',
@@ -218,6 +218,23 @@ class ActorPage extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+
+
+  //Widget to render the no movies found
+  Widget _renderNoMoviesFound() =>
+    Center(
+      child: Container(
+        margin: const EdgeInsets.only(top: 50),
+        child: const Text(
+          'No movies found',
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w300,
+            fontFamily: 'Baloo 2'
+          ),
+        ),
       ),
     );
 

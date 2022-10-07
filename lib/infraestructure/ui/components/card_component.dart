@@ -16,7 +16,7 @@ class CardComponent extends StatelessWidget {
   const CardComponent({
     Key? key,
     required this.title,
-    required this.subtitle,
+    this.subtitle,
     required this.imagePath,
     required this.cardId,
   }) : super(key: key);

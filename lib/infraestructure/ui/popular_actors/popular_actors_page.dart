@@ -10,22 +10,22 @@ import 'package:avila_tek_test/infraestructure/ui/components/nav_bar_component.d
 import 'package:avila_tek_test/infraestructure/ui/components/loading_component.dart';
 import 'package:avila_tek_test/infraestructure/ui/components/base_ui_component.dart';
 import 'package:avila_tek_test/infraestructure/ui/styles/colors.dart';
-import 'package:avila_tek_test/application/bloc/feed/feed_bloc.dart';
-import 'package:avila_tek_test/domain/models/movies/popular_movies_model.dart';
+import 'package:avila_tek_test/application/bloc/popular_actors/popular_actors_bloc.dart';
+import 'package:avila_tek_test/domain/models/actors/popular_actors_model.dart';
 import 'package:avila_tek_test/domain/services/calculate_movie_rating_percentage_service.dart';
 
 //Its the main page of the app.
-class FeedPage extends StatefulWidget {
-  const FeedPage({Key? key}) : super(key: key);
+class PopularActorsPage extends StatefulWidget {
+  const PopularActorsPage({Key? key}) : super(key: key);
 
 
   @override
-  _FeedPageState createState() => _FeedPageState();
+  _PopularActorsPageState createState() => _PopularActorsPageState();
 }
 
-class _FeedPageState extends State<FeedPage> {
+class _PopularActorsPageState extends State<PopularActorsPage> {
   // ignore: unused_field
-  static const routeName = '/feed';
+  static const routeName = '/popular_actors';
 
   // ignore: prefer_const_constructors_in_immutables
 
@@ -53,8 +53,8 @@ class _FeedPageState extends State<FeedPage> {
   Widget build(BuildContext context) {
     return BlocProvider(
       lazy:  false,
-      create: (context) => FeedBloc(),
-      child: BlocBuilder<FeedBloc, FeedState>(
+      create: (context) => PopularActorsBloc(),
+      child: BlocBuilder<PopularActorsBloc, PopularActorsState>(
         builder: (context, state) {
           return BaseUIComponent(
             scaffoldKey: scaffoldKey,
@@ -72,7 +72,7 @@ class _FeedPageState extends State<FeedPage> {
   ///Widget AppBar
   PreferredSizeWidget _renderAppBar(BuildContext context) => AppBar(
     backgroundColor: colorWhite,
-    title: const Text('Latest', style: TextStyle(color: colorBlack, fontSize: 24, fontWeight: FontWeight.bold)),
+    title: const Text('Popular Actors', style: TextStyle(color: colorBlack, fontSize: 24, fontWeight: FontWeight.bold)),
     centerTitle: true,
     elevation: 0,
     leading: IconButton(
@@ -93,28 +93,28 @@ class _FeedPageState extends State<FeedPage> {
 
 
    //Widget Body
-  Widget _body(BuildContext context, FeedState state) {
+  Widget _body(BuildContext context, PopularActorsState state) {
 
-    if(state is FeedStateInitial) {
-      context.read<FeedBloc>().add(FeedEventFetchBasicData(context: context));
+    if(state is PopularActorsStateInitial) {
+      context.read<PopularActorsBloc>().add(PopularActorsEventFetchBasicData(context: context));
     }
 
     return Stack(
       children: [
-        if(state is! FeedStateInitial)  _feedStreamBuilder(context),
-        if(state is FeedStateInitial || state is FeedStateLoading) const LoadingComponent(),
+        if(state is! PopularActorsStateInitial)  _popularActorsStreamBuilder(context),
+        if(state is PopularActorsStateInitial || state is PopularActorsStateLoading) const LoadingComponent(),
       ],
     );
   }
 
 
-  //StreamBuilder for the Feed Page
-  Widget _feedStreamBuilder(BuildContext builderContext) => StreamBuilder<List<MovieModel>>(
-    stream: builderContext.read<FeedBloc>().feedStream,
-    builder: (BuildContext context, AsyncSnapshot<List<MovieModel>> snapshot) {
+  //StreamBuilder for the PopularActors Page
+  Widget _popularActorsStreamBuilder(BuildContext builderContext) => StreamBuilder<List<Actor>>(
+    stream: builderContext.read<PopularActorsBloc>().popularActorsStream,
+    builder: (BuildContext context, AsyncSnapshot<List<Actor>> snapshot) {
 
       if(snapshot.hasData) {
-        return _feedRenderView(context, snapshot.data!);
+        return _popularActorsRenderView(context, snapshot.data!);
       } 
 
       return const LoadingComponent();
@@ -122,8 +122,8 @@ class _FeedPageState extends State<FeedPage> {
   );
 
 
-  //Widget for the Feed Page
-  Widget _feedRenderView(BuildContext context, List<MovieModel> moviesList) => 
+  //Widget for the PopularActors Page
+  Widget _popularActorsRenderView(BuildContext context, List<Actor> actorsList) => 
     Padding(
       padding: const EdgeInsets.all(16),
       child: GridView.count(
@@ -136,22 +136,21 @@ class _FeedPageState extends State<FeedPage> {
         crossAxisSpacing: 16,
 
         scrollDirection: Axis.vertical,
-        children: List.generate(moviesList.length + 2, (index)  {
-          if(index >= moviesList.length) {
-            if(_isLoading) _fetchNewMovies(context, moviesList);
+        children: List.generate(actorsList.length + 2, (index)  {
+          if(index >= actorsList.length) {
+            if(_isLoading) _fetchNewActors(context, actorsList);
             return const Center(child: LoadingComponent());
 
           } else {
 
           return GestureDetector(
-            onTap: ()=> context.read<FeedBloc>().add(FeedEventNavigateTo('/movie_credit', moviesList[index])),
+            onTap: ()=> context.read<PopularActorsBloc>().add(PopularActorsEventNavigateTo('/actor', actorsList[index].id.toString())),
               child: SizedBox(
                 height: index % 2 != 0 ?  250 :  140,
                 child: CardComponent(
-                  title: moviesList[index].title,
-                  subtitle: '${(CalculateMovieRatingPercentageService.getMovieRatingPercentage(moviesList[index].voteAverage!)).toStringAsFixed(0)}% User Score',
-                  imagePath: moviesList[index].posterPath,
-                  cardId: moviesList[index].id!.toString(),
+                  title: actorsList[index].name,
+                  imagePath: actorsList[index].profilePath,
+                  cardId: actorsList[index].id!.toString(),
                 ),
               ));
           }
@@ -160,8 +159,8 @@ class _FeedPageState extends State<FeedPage> {
     );
 
 
-    void _fetchNewMovies(BuildContext context, List<MovieModel> moviesList){
-      context.read<FeedBloc>().add(FeedEventFetchMoreMovies(moviesList, context));
+    void _fetchNewActors(BuildContext context, List<Actor> actorsList){
+      context.read<PopularActorsBloc>().add(PopularActorsEventFetchMoreActors(actorsList, context));
       _isLoading = false;
     }
 
