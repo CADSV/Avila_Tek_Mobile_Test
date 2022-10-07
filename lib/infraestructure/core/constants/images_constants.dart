@@ -3,6 +3,7 @@ enum ImagesConstant {
   avilaTek,
   movieDB,
   empty,
+  noInternet,
 }
 
 const imageBase= 'assets/images/';
@@ -13,7 +14,7 @@ extension ImagesConstantExtension on ImagesConstant {
   String get image {
     switch (this) {
       case ImagesConstant.movieDBLogo:
-        return '${iconBase}movieDBLogo.svg';
+        return '${iconBase}movieDBLogo.png';
 
       case ImagesConstant.avilaTek:
         return '${imageBase}avilaTek.png';
@@ -23,6 +24,9 @@ extension ImagesConstantExtension on ImagesConstant {
 
       case ImagesConstant.empty:
         return '${imageBase}empty.png';
+
+      case ImagesConstant.noInternet:
+        return '${imageBase}no_internet.png';
     }
   }
 }

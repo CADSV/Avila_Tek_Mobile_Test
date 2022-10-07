@@ -1,5 +1,5 @@
 //Flutter imports
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, unnecessary_getters_setters
 
 import 'dart:async';
 import 'package:flutter/material.dart';

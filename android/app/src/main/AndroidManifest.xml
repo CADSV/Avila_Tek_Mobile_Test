@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.avila_tek_test">
    <application
-        android:label="avila_tek_test"
+        android:label="Avila Tek Test"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
