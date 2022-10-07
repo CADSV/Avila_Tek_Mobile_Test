@@ -3,12 +3,12 @@ import 'dart:convert';
 import 'package:avila_tek_test/domain/models/movies/popular_movies_model.dart';
 
 
-PopularActorModel getActorModelFromJson(String str) => PopularActorModel.fromJson(json.decode(str));
+PopularActorsModel getPopularActorsModelFromJson(String str) => PopularActorsModel.fromJson(json.decode(str));
 
-///PopularActorModel: Model for popular actors.
-class PopularActorModel {
+///PopularActorsModel: Model for popular actors.
+class PopularActorsModel {
 
-  PopularActorModel({
+  PopularActorsModel({
     this.page,
     this.results,
     this.totalPages,
@@ -22,7 +22,7 @@ class PopularActorModel {
   int? totalResults;
 
 
-  factory PopularActorModel.fromJson(Map<String, dynamic> json) => PopularActorModel(
+  factory PopularActorsModel.fromJson(Map<String, dynamic> json) => PopularActorsModel(
     page: json['page'],
     results: List<Actor>.from(json['results'].map((x) => Actor.fromJson(x))),
     totalPages: json['total_pages'],

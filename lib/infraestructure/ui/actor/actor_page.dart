@@ -1,18 +1,18 @@
 //Flutter imports:
-import 'package:avila_tek_test/domain/models/actors/actor_model.dart';
-import 'package:avila_tek_test/domain/models/movies/popular_movies_model.dart';
-import 'package:avila_tek_test/domain/services/calculate_movie_rating_percentage_service.dart';
-import 'package:avila_tek_test/infraestructure/core/constants/images_constants.dart';
-import 'package:avila_tek_test/infraestructure/ui/components/card_component.dart';
-import 'package:avila_tek_test/infraestructure/ui/components/loading_component.dart';
-import 'package:avila_tek_test/infraestructure/ui/components/return_button_component.dart';
-import 'package:avila_tek_test/infraestructure/ui/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 //Project imports:
 import 'package:avila_tek_test/infraestructure/ui/components/base_ui_component.dart';
+import 'package:avila_tek_test/infraestructure/core/constants/images_constants.dart';
+import 'package:avila_tek_test/infraestructure/ui/components/card_component.dart';
+import 'package:avila_tek_test/infraestructure/ui/components/loading_component.dart';
+import 'package:avila_tek_test/infraestructure/ui/components/return_button_component.dart';
+import 'package:avila_tek_test/infraestructure/ui/styles/colors.dart';
 import 'package:avila_tek_test/application/bloc/actor/actor_bloc.dart';
+import 'package:avila_tek_test/domain/models/actors/actor_model.dart';
+import 'package:avila_tek_test/domain/services/calculate_movie_rating_percentage_service.dart';
+import 'package:avila_tek_test/domain/models/movies/popular_movies_model.dart';
 import 'package:avila_tek_test/domain/models/movies/movie_credits_model.dart';
 
 ///ActorPage: Class that represents the actor page.
